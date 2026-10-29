@@ -1,0 +1,2849 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0e0b13" />
+    <meta
+      name="description"
+      content="Documentação técnica de IMANI: código completo HTML, CSS e JavaScript, com explicações, busca e consulta por linhas."
+    />
+    <title>IMANI | Código-fonte explicado</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #0e0b13;
+        --panel: #17121f;
+        --panel2: #211a2b;
+        --line: #403146;
+        --text: #f6eff2;
+        --muted: #bbadbf;
+        --gold: #f5d18b;
+        --wine: #d96b8a;
+        --violet: #bea0f2;
+        --mint: #a8d8be;
+        --shadow: 0 22px 60px #0006;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 112px;
+      }
+      body {
+        margin: 0;
+        color: var(--text);
+        background:
+          radial-gradient(
+            ellipse 1000px 470px at 74% -3%,
+            #5e2e47a0,
+            transparent
+          ),
+          radial-gradient(
+            ellipse 850px 620px at 0% 29%,
+            #2f204fa0,
+            transparent
+          ),
+          var(--bg);
+        font:
+          15px/1.65 system-ui,
+          -apple-system,
+          "Segoe UI",
+          sans-serif;
+      }
+      button,
+      input {
+        font: inherit;
+      }
+      a {
+        color: inherit;
+      }
+      [hidden] {
+        display: none !important;
+      }
+      a:focus-visible,
+      button:focus-visible,
+      input:focus-visible,
+      summary:focus-visible {
+        outline: 2px solid var(--gold);
+        outline-offset: 3px;
+      }
+      ::selection {
+        background: #8d4969;
+        color: #fff;
+      }
+      .page {
+        width: min(1380px, calc(100% - 48px));
+        margin-inline: auto;
+      }
+      .mast {
+        height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 15px;
+        border-bottom: 1px solid #ffffff24;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        text-decoration: none;
+        font:
+          700 24px Georgia,
+          serif;
+        letter-spacing: 0.24em;
+      }
+      .mark-brand {
+        width: 27px;
+        height: 27px;
+        border: 2px solid var(--gold);
+        transform: rotate(45deg);
+        display: grid;
+        place-items: center;
+      }
+      .mark-brand:after {
+        content: "";
+        width: 8px;
+        height: 8px;
+        background: var(--wine);
+      }
+      .mast-note {
+        color: var(--muted);
+        font-size: 11px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+      .hero {
+        padding: 76px 0 40px;
+        position: relative;
+      }
+      .hero:after {
+        content: "✧";
+        position: absolute;
+        right: 2%;
+        top: 4%;
+        font:
+          230px/1 Georgia,
+          serif;
+        color: #f5d18b0b;
+        pointer-events: none;
+      }
+      .eyebrow-top {
+        font-size: 11px;
+        text-transform: uppercase;
+        color: var(--gold);
+        font-weight: 800;
+        letter-spacing: 0.22em;
+      }
+      .hero h1 {
+        font:
+          normal clamp(48px, 6.8vw, 92px)/1.06 Georgia,
+          serif;
+        letter-spacing: -0.06em;
+        max-width: 1050px;
+        margin: 17px 0 18px;
+      }
+      .hero h1 em {
+        font-style: normal;
+        color: var(--gold);
+      }
+      .hero p {
+        font-size: 17px;
+        color: var(--muted);
+        max-width: 760px;
+        margin: 0;
+      }
+      .meta-bar {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 24px;
+      }
+      .meta {
+        border: 1px solid #725368;
+        border-radius: 100px;
+        background: #2b1d30;
+        padding: 7px 14px;
+        font-size: 12px;
+        color: #ead4e5;
+      }
+      .meta b {
+        color: var(--gold);
+      }
+      .search-shell {
+        position: sticky;
+        top: 0;
+        z-index: 90;
+        background: #0e0b13ed;
+        backdrop-filter: blur(18px);
+        border-bottom: 1px solid #ffffff1c;
+        padding: 14px 0;
+      }
+      .search-inner {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+      .search-frame {
+        position: relative;
+        flex: 1;
+      }
+      .search-frame .mag {
+        position: absolute;
+        top: 50%;
+        left: 23px;
+        transform: translateY(-50%);
+        font-size: 28px;
+        color: var(--gold);
+        pointer-events: none;
+      }
+      .search-frame input {
+        display: block;
+        width: 100%;
+        min-height: 68px;
+        border-radius: 13px;
+        background: #261c2d;
+        border: 1px solid #94728f;
+        color: #fff;
+        padding: 16px 120px 16px 67px;
+        font-size: 19px;
+        outline: none;
+        box-shadow: 0 7px 35px #0005;
+      }
+      .search-frame input:focus {
+        border-color: var(--gold);
+        box-shadow: 0 0 0 2px #f5d18b35;
+      }
+      .search-frame input::placeholder {
+        color: #c8b7ca;
+      }
+      .kbd {
+        position: absolute;
+        right: 18px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 11px;
+        color: #b8a5bf;
+        border: 1px solid #755970;
+        padding: 4px 8px;
+        border-radius: 5px;
+        pointer-events: none;
+      }
+      .search-results {
+        display: none;
+        position: absolute;
+        top: calc(100% + 8px);
+        left: 0;
+        right: 0;
+        max-height: min(65vh, 560px);
+        overflow-y: auto;
+        background: #1c1524;
+        border: 1px solid #997492;
+        border-radius: 12px;
+        box-shadow: 0 24px 60px #000d;
+        padding: 12px;
+        z-index: 110;
+      }
+      .search-results.show {
+        display: block;
+      }
+      .search-count {
+        font-size: 12px;
+        color: var(--gold);
+        padding: 4px 11px 10px;
+      }
+      .result-title {
+        color: #ad93b9;
+        font-weight: 800;
+        letter-spacing: 0.15em;
+        font-size: 10px;
+        padding: 10px 11px 5px;
+        text-transform: uppercase;
+      }
+      .search-hit {
+        width: 100%;
+        display: block;
+        border: 0;
+        background: transparent;
+        color: #eee5f4;
+        text-align: left;
+        padding: 12px 13px;
+        border-radius: 7px;
+        cursor: pointer;
+      }
+      .search-hit:hover,
+      .search-hit:focus-visible {
+        background: #43304b;
+      }
+      .search-hit .hit-meta {
+        font-size: 11px;
+        color: var(--gold);
+        display: block;
+        font-weight: 800;
+        margin-bottom: 3px;
+      }
+      .search-hit .hit-fragment {
+        display: block;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font:
+          12px/1.6 ui-monospace,
+          Consolas,
+          monospace;
+      }
+      .search-hit .hit-fragment.doc {
+        font-family: inherit;
+        font-size: 13px;
+      }
+      .search-hit mark {
+        background: #f6d18b;
+        color: #160c18;
+        border-radius: 2px;
+      }
+      .more-btn {
+        background: #362541;
+        border: 1px solid #6b4b79;
+        color: #f0e7f5;
+        border-radius: 7px;
+        width: 100%;
+        padding: 9px;
+        cursor: pointer;
+        margin-top: 8px;
+      }
+      .search-help {
+        font-size: 12px;
+        color: var(--muted);
+        white-space: nowrap;
+      }
+      .topnav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin: 25px 0 35px;
+      }
+      .navpill {
+        border: 1px solid #67465f;
+        border-radius: 50px;
+        text-decoration: none;
+        padding: 10px 17px;
+        font-size: 13px;
+        font-weight: 700;
+        background: #231a28;
+      }
+      .navpill:hover {
+        background: #4a2844;
+      }
+      .navpill.main {
+        background: #7c3559;
+        border-color: #be698f;
+      }
+      .source-section {
+        scroll-margin-top: 120px;
+        margin: 0 0 65px;
+      }
+      .section-kicker {
+        color: var(--gold);
+        font-size: 12px;
+        letter-spacing: 0.18em;
+        font-weight: 800;
+        text-transform: uppercase;
+        margin: 0 0 8px;
+      }
+      .section-header {
+        display: flex;
+        justify-content: space-between;
+        gap: 15px;
+        align-items: end;
+      }
+      .section-header h2 {
+        font:
+          normal clamp(28px, 3.7vw, 44px)/1.15 Georgia,
+          serif;
+        margin: 0 0 13px;
+      }
+      .section-sub {
+        color: var(--muted);
+        margin: 0 0 22px;
+        max-width: 880px;
+      }
+      .source-layout {
+        display: grid;
+        grid-template-columns: 220px minmax(0, 1fr);
+        gap: 0;
+        border: 1px solid #6c4b68;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        background: #131019;
+      }
+      .file-list {
+        background: #191320;
+        border-right: 1px solid #49364b;
+        padding: 18px 10px;
+      }
+      .file-list-title {
+        padding: 7px 12px 14px;
+        color: #9e8aaa;
+        letter-spacing: 0.17em;
+        font-size: 10px;
+        font-weight: 800;
+      }
+      .file-tab {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        width: 100%;
+        text-align: left;
+        border: 0;
+        border-radius: 8px;
+        padding: 13px 13px;
+        margin-bottom: 5px;
+        background: transparent;
+        color: #cfbfce;
+        cursor: pointer;
+        font:
+          13px ui-monospace,
+          Consolas,
+          monospace;
+      }
+      .file-tab span {
+        color: #8e7991;
+        font-size: 10px;
+      }
+      .file-tab[aria-selected="true"] {
+        background: #4a2c47;
+        color: #fff;
+        box-shadow: inset 3px 0 var(--gold);
+      }
+      .file-tab[aria-selected="true"] span {
+        color: var(--gold);
+      }
+      .file-tab:hover {
+        background: #33233b;
+      }
+      .file-help {
+        padding: 15px 12px;
+        color: #a996b2;
+        font-size: 12px;
+        line-height: 1.65;
+      }
+      .file-help b {
+        color: var(--gold);
+      }
+      .source-main {
+        min-width: 0;
+      }
+      .source-head {
+        min-height: 73px;
+        background: #251b2b;
+        border-bottom: 1px solid #574259;
+        padding: 14px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 13px;
+        flex-wrap: wrap;
+      }
+      .source-name {
+        font:
+          700 16px ui-monospace,
+          Consolas,
+          monospace;
+      }
+      .source-count {
+        color: #b19eb8;
+        font-size: 12px;
+        display: block;
+      }
+      .source-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .toolbtn {
+        border: 1px solid #75546d;
+        background: #36253e;
+        color: #fff;
+        border-radius: 7px;
+        padding: 9px 12px;
+        font-size: 12px;
+        font-weight: 650;
+        cursor: pointer;
+      }
+      .toolbtn:hover {
+        background: #5b3b5a;
+      }
+      .toolbtn:disabled {
+        opacity: 0.38;
+        cursor: not-allowed;
+      }
+      .page-arrows {
+        display: flex;
+        gap: 8px;
+      }
+      .code-scroll-help {
+        color: #c9b5cf;
+        font-size: 12px;
+      }
+      .line-input {
+        width: 86px;
+        min-height: 37px;
+        border-radius: 7px;
+        border: 1px solid #76546e;
+        background: #18121d;
+        color: #fff;
+        padding: 7px 9px;
+        font-size: 12px;
+      }
+      .codepanel {
+        height: 550px;
+        overflow: auto;
+        background: #0f0d16;
+        scrollbar-color: #70546f #17111b;
+      }
+      .code-view {
+        width: max-content;
+        min-width: 100%;
+        font:
+          12.5px/1.75 ui-monospace,
+          SFMono-Regular,
+          Consolas,
+          "Liberation Mono",
+          monospace;
+        padding: 14px 0;
+      }
+      .code-line {
+        display: flex;
+        min-height: 22px;
+        white-space: pre;
+        width: 100%;
+        border-left: 3px solid transparent;
+      }
+      .code-line:nth-child(even) {
+        background: #fff1;
+      }
+      .line-no {
+        position: sticky;
+        left: 0;
+        display: inline-block;
+        flex: 0 0 63px;
+        width: 63px;
+        padding: 0 12px 0 8px;
+        border-right: 1px solid #342838;
+        background: #110e18;
+        color: #806d85;
+        text-align: right;
+        user-select: none;
+        z-index: 1;
+      }
+      .line-code {
+        padding: 0 18px;
+        color: #d8c9dc;
+        white-space: pre;
+        tab-size: 2;
+      }
+      .code-line.is-comment .line-code {
+        color: #8db8a3;
+      }
+      .code-line.is-decl .line-code {
+        color: #ddc78d;
+      }
+      .code-line.target {
+        border-left-color: var(--gold);
+        background: #5d442a80 !important;
+        animation: linepulse 2.5s ease-out;
+      }
+      @keyframes linepulse {
+        0%,
+        65% {
+          background: #96743c80;
+        }
+        100% {
+          background: #5d442a80;
+        }
+      }
+      .line-code mark {
+        background: #eed086;
+        color: #140c18;
+        border-radius: 1px;
+      }
+      .source-foot {
+        border-top: 1px solid #4c3651;
+        background: #1a1521;
+        padding: 10px 20px;
+        display: flex;
+        justify-content: space-between;
+        gap: 8px;
+        align-items: center;
+        flex-wrap: wrap;
+        font-size: 12px;
+        color: #c1acc5;
+      }
+      .code-source-info {
+        border: 1px solid #766146;
+        background: #28221f;
+        color: #d9c9ac;
+        padding: 13px 17px;
+        border-radius: 8px;
+        margin-top: 15px;
+        font-size: 13px;
+      }
+      .code-source-info strong {
+        color: var(--gold);
+      }
+      .docs-layout {
+        display: grid;
+        grid-template-columns: 240px minmax(0, 1fr);
+        gap: 27px;
+        align-items: start;
+        padding-bottom: 65px;
+      }
+      .sidebar {
+        position: sticky;
+        top: 115px;
+        max-height: calc(100vh - 135px);
+        overflow: auto;
+        scrollbar-color: #675069 #191220;
+      }
+      .nav-group {
+        color: var(--gold);
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        font-size: 10px;
+        font-weight: 800;
+        margin: 18px 0 8px;
+      }
+      .nav-links a {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 12.5px;
+        text-decoration: none;
+        color: #c7bacb;
+        padding: 8px 9px;
+        border-radius: 7px;
+      }
+      .nav-links a span {
+        font-size: 10px;
+        color: #8d718b;
+        min-width: 17px;
+      }
+      .nav-links a:hover {
+        background: #33243b;
+        color: #fff;
+      }
+      .side-note {
+        border: 1px solid #71543a;
+        border-radius: 8px;
+        padding: 15px;
+        font-size: 12px;
+        margin-top: 20px;
+        color: #ead8b8;
+      }
+      .side-note b {
+        color: var(--gold);
+      }
+      .docs-main {
+        min-width: 0;
+      }
+      .section-start h2 {
+        font:
+          normal 37px Georgia,
+          serif;
+        margin: 0 0 9px;
+      }
+      .section-start p {
+        color: var(--muted);
+        max-width: 830px;
+        margin: 0 0 28px;
+      }
+      .quickstart {
+        border: 1px solid #846044;
+        background: linear-gradient(110deg, #301b2d, #242026);
+        border-radius: 12px;
+        padding: 22px;
+        margin-bottom: 25px;
+      }
+      .quickstart h2 {
+        font:
+          normal 24px Georgia,
+          serif;
+        margin: 0 0 10px;
+      }
+      .quickstart p {
+        margin: 0;
+        color: #e4d4da;
+      }
+      .quickstart strong {
+        color: var(--gold);
+      }
+      .quick-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 9px;
+        margin-top: 17px;
+      }
+      .quick-chip {
+        background: #ffffff0b;
+        border-radius: 7px;
+        padding: 11px;
+        font-size: 12px;
+      }
+      .quick-chip b {
+        color: var(--gold);
+        display: block;
+      }
+      .result-count {
+        margin: 0 0 13px;
+        color: var(--muted);
+        font-size: 12px;
+      }
+      .lesson {
+        scroll-margin-top: 116px;
+        border: 1px solid #47334c;
+        border-radius: 12px;
+        padding: clamp(19px, 3vw, 32px);
+        background: linear-gradient(180deg, #1e1726, #18131e);
+        box-shadow: 0 12px 35px #0003;
+        margin-bottom: 20px;
+      }
+      .lesson-head {
+        display: flex;
+        gap: 16px;
+        align-items: start;
+      }
+      .lesson-number {
+        font:
+          30px Georgia,
+          serif;
+        color: var(--gold);
+        min-width: 38px;
+      }
+      .eyebrow {
+        color: var(--wine);
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 0.15em;
+        margin: 0;
+      }
+      .lesson h2 {
+        font:
+          normal clamp(23px, 2.8vw, 32px)/1.2 Georgia,
+          serif;
+        margin: 0;
+      }
+      .lesson .lead {
+        color: #eee0e5;
+        font-weight: 700;
+        margin-top: 19px;
+      }
+      .lesson p {
+        color: #cfc0d3;
+      }
+      .lesson .tiny-heading {
+        font-weight: 800;
+        font-size: 10px;
+        color: var(--gold);
+        letter-spacing: 0.14em;
+        margin: 20px 0 5px;
+      }
+      .where code {
+        background: #352840;
+        padding: 2px 5px;
+        border-radius: 4px;
+        color: #e1c3f3;
+      }
+      .code-window {
+        border: 1px solid #513c57;
+        border-radius: 8px;
+        background: #0f0d15;
+        overflow: hidden;
+        margin: 16px 0;
+      }
+      .code-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 9px;
+        background: #2a2030;
+        border-bottom: 1px solid #513c57;
+        padding: 7px 13px;
+        color: #cbb5d1;
+        font-size: 11px;
+        letter-spacing: 0.1em;
+      }
+      .copy-btn {
+        border: 1px solid #765276;
+        background: #4b3153;
+        color: white;
+        border-radius: 6px;
+        padding: 5px 10px;
+        cursor: pointer;
+        font-size: 11px;
+        letter-spacing: 0;
+      }
+      .code-window pre {
+        overflow: auto;
+        margin: 0;
+        padding: 15px 17px;
+        color: #e0d2e9;
+        font:
+          12.5px/1.7 ui-monospace,
+          Consolas,
+          monospace;
+      }
+      .code-window code {
+        white-space: pre;
+      }
+      .remember {
+        display: flex;
+        gap: 12px;
+        background: #2a231e;
+        border: 1px solid #715e42;
+        border-radius: 7px;
+        padding: 13px;
+      }
+      .remember span {
+        color: var(--gold);
+        font-size: 21px;
+      }
+      .remember p {
+        margin: 0;
+        font-size: 12.5px;
+        color: #e3d0af;
+      }
+      .remember strong {
+        color: var(--gold);
+      }
+      .code-links {
+        border-top: 1px solid #4b3950;
+        padding-top: 15px;
+        margin-top: 18px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .code-links-label {
+        font-size: 10px;
+        color: #bdadbe;
+        font-weight: 800;
+        letter-spacing: 0.07em;
+        margin-right: 5px;
+      }
+      .jump-code {
+        border: 1px solid #926e51;
+        color: var(--gold);
+        background: #31251f;
+        border-radius: 7px;
+        padding: 7px 12px;
+        font:
+          11px ui-monospace,
+          Consolas,
+          monospace;
+        cursor: pointer;
+      }
+      .jump-code:hover {
+        background: #503c2a;
+      }
+      .jump-code.secondary {
+        border-color: #6c5079;
+        color: #d7b5f2;
+        background: #2b2135;
+      }
+      .divider-heading {
+        font:
+          normal 33px Georgia,
+          serif;
+        margin: 55px 0 11px;
+      }
+      .muted {
+        color: var(--muted);
+      }
+      .glossary {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 9px;
+      }
+      .term {
+        display: flex;
+        align-items: start;
+        gap: 12px;
+        border: 1px solid #49364d;
+        background: #211927;
+        padding: 12px;
+        border-radius: 7px;
+      }
+      .term code {
+        min-width: 123px;
+        color: var(--gold);
+        font:
+          12.5px/1.5 ui-monospace,
+          monospace;
+        overflow-wrap: anywhere;
+      }
+      .term p {
+        font-size: 12px;
+        margin: 0;
+        color: #c7b8cb;
+      }
+      .closing {
+        background: #34222c;
+        border: 1px solid #a47755;
+        border-radius: 10px;
+        padding: 23px;
+        margin-top: 28px;
+      }
+      .closing h3 {
+        color: var(--gold);
+        font:
+          normal 24px Georgia,
+          serif;
+        margin: 0 0 9px;
+      }
+      .closing p {
+        margin: 0;
+        color: #e6d8dc;
+      }
+      .footer {
+        border-top: 1px solid #ffffff28;
+        text-align: center;
+        padding: 32px;
+        color: #b9a6ba;
+        font-size: 12px;
+      }
+      .footer b {
+        color: var(--gold);
+      }
+      .backtop {
+        position: fixed;
+        bottom: 22px;
+        right: 22px;
+        background: #84435f;
+        border: 1px solid #bd7795;
+        border-radius: 50%;
+        text-decoration: none;
+        width: 44px;
+        height: 44px;
+        display: grid;
+        place-items: center;
+        color: white;
+        font-size: 21px;
+        z-index: 20;
+      }
+      .no-results {
+        display: none;
+        background: #312230;
+        border: 1px solid #aa7685;
+        border-radius: 10px;
+        padding: 17px;
+        margin-bottom: 20px;
+      }
+      @media (max-width: 1100px) {
+        .docs-layout {
+          grid-template-columns: 210px minmax(0, 1fr);
+          gap: 19px;
+        }
+        .source-layout {
+          grid-template-columns: 180px minmax(0, 1fr);
+        }
+        .file-list {
+          padding: 13px 6px;
+        }
+      }
+      @media (max-width: 790px) {
+        .page {
+          width: min(100% - 28px, 1380px);
+        }
+        .mast {
+          height: 60px;
+        }
+        .mast-note {
+          font-size: 9px;
+        }
+        .brand {
+          font-size: 20px;
+        }
+        .hero {
+          padding: 45px 0 28px;
+        }
+        .hero p {
+          font-size: 15px;
+        }
+        .search-inner {
+          display: block;
+        }
+        .search-help {
+          display: none;
+        }
+        .search-shell {
+          padding: 10px 0;
+        }
+        .search-frame input {
+          font-size: 16px;
+          min-height: 60px;
+          padding: 12px 18px 12px 52px;
+        }
+        .search-frame .mag {
+          left: 15px;
+        }
+        .source-layout {
+          display: block;
+        }
+        .file-list {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          border-right: 0;
+          border-bottom: 1px solid #49364b;
+          padding: 9px;
+          overflow-x: auto;
+        }
+        .file-list-title,
+        .file-help {
+          display: none;
+        }
+        .file-tab {
+          min-width: max-content;
+          width: auto;
+          margin: 0;
+          padding: 10px;
+        }
+        .file-tab span {
+          display: none;
+        }
+        .source-head {
+          padding: 12px 13px;
+        }
+        .codepanel {
+          height: 510px;
+        }
+        .docs-layout {
+          display: block;
+        }
+        .sidebar {
+          position: static;
+          max-height: none;
+          overflow: visible;
+          margin-bottom: 25px;
+        }
+        .nav-links {
+          display: flex;
+          overflow-x: auto;
+          gap: 6px;
+          padding-bottom: 9px;
+        }
+        .nav-links a {
+          flex: 0 0 auto;
+          background: #2b2031;
+          border: 1px solid #59405c;
+          border-radius: 7px;
+        }
+        .nav-group {
+          margin: 15px 0 5px;
+        }
+        .side-note {
+          display: none;
+        }
+        .quick-grid {
+          grid-template-columns: 1fr;
+        }
+        .glossary {
+          grid-template-columns: 1fr;
+        }
+        .term code {
+          min-width: 120px;
+        }
+        .lesson {
+          padding: 18px;
+        }
+        .code-line {
+          font-size: 12px;
+        }
+        .source-section {
+          margin-bottom: 40px;
+        }
+        .kbd {
+          display: none;
+        }
+        .section-header h2 {
+          font-size: 32px;
+        }
+      }
+      @media (max-width: 420px) {
+        .mast-note {
+          display: none;
+        }
+        .meta {
+          font-size: 10px;
+        }
+        .search-frame input {
+          font-size: 14px;
+        }
+        .source-actions {
+          width: 100%;
+        }
+        .toolbtn {
+          padding: 7px 9px;
+        }
+        .line-input {
+          width: 75px;
+        }
+        .source-name {
+          font-size: 14px;
+        }
+        .line-no {
+          flex-basis: 50px;
+          width: 50px;
+        }
+        .line-code {
+          padding: 0 11px;
+        }
+        .hero h1 {
+          font-size: 48px;
+        }
+      }
+      @media print {
+        .search-shell,
+        .topnav,
+        .sidebar,
+        .source-section,
+        .backtop,
+        .copy-btn,
+        .code-links,
+        .footer {
+          display: none !important;
+        }
+        body {
+          background: #fff;
+          color: #1b1720;
+        }
+        .docs-layout {
+          display: block;
+        }
+        .lesson {
+          border: 1px solid #ccc;
+          break-inside: avoid;
+          box-shadow: none;
+          color: #111;
+          background: #fff;
+        }
+        .lesson p,
+        .lesson .lead {
+          color: #111;
+        }
+        .section-start h2 {
+          color: #111;
+        }
+      }
+    </style>
+  </head>
+  <body id="top">
+    <header class="page mast">
+      <a class="brand" href="#top"
+        ><span class="mark-brand" aria-hidden="true"></span>IMANI</a
+      ><span class="mast-note">DOCUMENTAÇÃO DO CÓDIGO · DEMONSTRAÇÃO 2026</span>
+    </header>
+    <section class="hero page">
+      <div class="eyebrow-top">DOCUMENTAÇÃO TÉCNICA · PROJETO IMANI</div>
+      <h1>O código por trás de <em>IMANI.</em></h1>
+      <p>
+        Consulte <strong>o HTML, o CSS e o JavaScript completos</strong> do
+        projeto. Cada funcionalidade possui uma explicação e um atalho para sua
+        localização no código.
+      </p>
+      <div class="meta-bar">
+        <span class="meta"><b>03</b> arquivos completos</span
+        ><span class="meta"><b>16</b> funcionalidades explicadas</span
+        ><span class="meta">Busca por <b>função, variável ou trecho</b></span>
+      </div>
+    </section>
+    <div class="search-shell">
+      <div class="page search-inner">
+        <div class="search-frame">
+          <span class="mag" aria-hidden="true">⌕</span
+          ><input
+            id="global-search"
+            type="search"
+            autocomplete="off"
+            placeholder="Pesquisar em todo o código: movimentar, colisão, Ressonância..."
+            aria-label="Pesquisar nas explicações e no código completo"
+            aria-controls="search-results"
+          /><span class="kbd">Ctrl + K</span>
+          <div
+            class="search-results"
+            id="search-results"
+            aria-live="polite"
+          ></div>
+        </div>
+        <div class="search-help">HTML • CSS • JS<br />e explicações</div>
+      </div>
+    </div>
+    <div class="page">
+      <nav class="topnav" aria-label="Navegação principal">
+        <a class="navpill main" href="#codigo">⌘ Ver código completo</a
+        ><a class="navpill" href="#explicacoes">✦ Entender funcionalidades</a
+        ><a class="navpill" href="#glossario">{} Glossário</a
+        ><button id="print-btn" type="button" class="navpill">
+          ⎙ Imprimir explicações
+        </button>
+      </nav>
+      <section id="codigo" class="source-section">
+        <p class="section-kicker">01 / ARQUIVOS DO PROJETO</p>
+        <div class="section-header"><h2>Código-fonte completo</h2></div>
+        <p class="section-sub">
+          Escolha um arquivo e role pelo código inteiro, sem clicar em Próximo.
+          Use a pesquisa para encontrar funções e variáveis ou vá direto a uma
+          linha. Os botões nas explicações levam ao trecho correspondente.
+        </p>
+        <div class="source-layout">
+          <aside class="file-list" aria-label="Arquivos do projeto">
+            <div class="file-list-title">EXPLORADOR</div>
+            <button
+              class="file-tab"
+              data-file="html"
+              aria-selected="false"
+              type="button"
+            >
+              ◇ index.html <span>HTML</span></button
+            ><button
+              class="file-tab"
+              data-file="css"
+              aria-selected="false"
+              type="button"
+            >
+              ▤ style.css <span>CSS</span></button
+            ><button
+              class="file-tab"
+              data-file="js"
+              aria-selected="true"
+              type="button"
+            >
+              ⌘ script.js <span>JS</span>
+            </button>
+            <div class="file-help">
+              Os arquivos estão <b>inteiros</b> aqui. Este é um visualizador
+              para consulta; não executa o jogo.
+            </div>
+          </aside>
+          <div class="source-main">
+            <div class="source-head">
+              <div>
+                <span class="source-name" id="source-name">script.js</span
+                ><span class="source-count" id="source-count"></span>
+              </div>
+              <div class="source-actions">
+                <input
+                  class="line-input"
+                  type="number"
+                  id="line-field"
+                  min="1"
+                  placeholder="Linha"
+                  aria-label="Número da linha"
+                /><button class="toolbtn" type="button" id="go-line">
+                  Ir à linha</button
+                ><button class="toolbtn" type="button" id="copy-full">
+                  Copiar arquivo</button
+                ><button class="toolbtn" type="button" id="download-full">
+                  Baixar
+                </button>
+              </div>
+            </div>
+            <div
+              class="codepanel"
+              id="codepanel"
+              tabindex="0"
+              aria-label="Visualizador do código-fonte"
+            >
+              <div class="code-view" id="code-view"></div>
+            </div>
+            <div class="source-foot">
+              <span id="source-foot-count"></span
+              ><span class="code-scroll-help"
+                >Role para navegar pelo arquivo inteiro ↕</span
+              >
+            </div>
+          </div>
+        </div>
+        <p class="code-source-info">
+          <strong>Sobre esta versão:</strong> código baseado nos arquivos
+          fornecidos para a demonstração de IMANI, incluindo o botão final de
+          retorno ao menu. A documentação apresenta o código-fonte para análise;
+          o jogo exige seus arquivos e imagens próprios para rodar.
+        </p>
+      </section>
+      <div class="docs-layout" id="explicacoes">
+        <aside class="sidebar">
+          <p class="section-kicker">02 / APRENDER</p>
+          <div class="nav-group">Fundamentos</div>
+          <nav class="nav-links">
+            <a href="#tema-01"><span>01</span>Tecnologias e estrutura</a
+            ><a href="#tema-02"><span>02</span>Variáveis e constantes</a
+            ><a href="#tema-13"><span>13</span>Estados do jogo</a
+            ><a href="#tema-16"><span>16</span>Loop principal</a>
+          </nav>
+          <div class="nav-group">Jogabilidade</div>
+          <nav class="nav-links">
+            <a href="#tema-03"><span>03</span>Controles e movimento</a
+            ><a href="#tema-04"><span>04</span>Pulo e gravidade</a
+            ><a href="#tema-05"><span>05</span>Animações</a
+            ><a href="#tema-10"><span>10</span>Fragmentos</a
+            ><a href="#tema-11"><span>11</span>Cenários</a>
+          </nav>
+          <div class="nav-group">Combate</div>
+          <nav class="nav-links">
+            <a href="#tema-06"><span>06</span>Nahara e colisões</a
+            ><a href="#tema-07"><span>07</span>Comportamento dos Véus</a
+            ><a href="#tema-08"><span>08</span>Vida e dano</a
+            ><a href="#tema-09"><span>09</span>Ressonância</a>
+          </nav>
+          <div class="nav-group">Narrativa</div>
+          <nav class="nav-links">
+            <a href="#tema-12"><span>12</span>Diálogos</a
+            ><a href="#tema-14"><span>14</span>Vestígio</a
+            ><a href="#tema-15"><span>15</span>Memórias finais</a>
+          </nav>
+          <div class="side-note">
+            <b>Dica de leitura:</b> depois de ler a explicação, clique em
+            <b>“Conferir no código completo”</b> para ver o trecho real.
+          </div>
+        </aside>
+        <main class="docs-main">
+          <div class="section-start">
+            <p class="section-kicker">02 / FUNCIONALIDADES EXPLICADAS</p>
+            <h2>Entenda cada parte</h2>
+            <p>
+              Exemplos, explicações diretas e links para as linhas reais do
+              projeto.
+            </p>
+          </div>
+          <div class="quickstart">
+            <h2>Como o IMANI funciona?</h2>
+            <p>
+              <strong>HTML</strong> organiza a estrutura,
+              <strong>CSS</strong> define os visuais, e
+              <strong>JavaScript</strong> controla as regras, os movimentos e os
+              eventos do jogo.
+            </p>
+            <div class="quick-grid">
+              <div class="quick-chip"><b>Entradas</b>Teclado e interações</div>
+              <div class="quick-chip">
+                <b>Lógica</b>Variáveis, funções e condições
+              </div>
+              <div class="quick-chip">
+                <b>Resultado</b>Movimentação, combate e história
+              </div>
+            </div>
+          </div>
+          <article class="lesson" data-group="fundamentos" id="tema-01">
+            <div class="lesson-head">
+              <span class="lesson-number">01</span>
+              <div>
+                <p class="eyebrow">FUNDAMENTOS</p>
+                <h2>Tecnologias e estrutura</h2>
+              </div>
+            </div>
+            <p class="lead">HTML, CSS e JavaScript trabalham juntos no jogo.</p>
+            <p>
+              HTML cria os elementos; CSS cuida do visual; JavaScript controla
+              os acontecimentos.
+            </p>
+            <p class="tiny-heading">ONDE ENCONTRAR NO PROJETO</p>
+            <p class="where">
+              No início de <code>index.html</code> e em
+              <code>// 1. ELEMENTOS DO HTML</code> no <code>script.js</code>.
+            </p>
+            <div class="code-window">
+              <div class="code-top">
+                <span>HTML</span
+                ><button
+                  aria-label="Copiar código"
+                  class="copy-btn"
+                  type="button"
+                >
+                  Copiar código
+                </button>
+              </div>
+              <pre><code class="language-html">&lt;div id="imani"&gt;
+  &lt;div id="ataque"&gt;&lt;/div&gt;
+  &lt;div id="ressonancia"&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+            <div class="code-window">
+              <div class="code-top">
+                <span>JavaScript</span
+                ><button
+                  aria-label="Copiar código"
+                  class="copy-btn"
+                  type="button"
+                >
+                  Copiar código
+                </button>
+              </div>
+              <pre><code class="language-javascript">const imani = document.getElementById("imani");
+const ataque = document.getElementById("ataque");</code></pre>
+            </div>
+            <div class="remember">
+              <span>✦</span>
+              <p>
+                <strong>Para lembrar:</strong> HTML é estrutura; CSS é
+                aparência; JavaScript é comportamento.
+              </p>
+            </div>
+            <div class="code-links">
+              <span class="code-links-label">CONFERIR NO CÓDIGO COMPLETO</span
+              ><button
+                class="jump-code"
+                data-file="html"
+                data-line="151"
+                type="button"
+              >
+                ↗ index.html · linha 151</button
+              ><button
+                class="jump-code secondary"
+                data-file="css"
+                data-line="34"
+                type="button"
+              >
+                ↗ style.css · linha 34
+              </button>
+            </div>
+          </article>
+          <article class="lesson" data-group="fundamentos" id="tema-02">
+            <div class="lesson-head">
+              <span class="lesson-number">02</span>
+              <div>
+                <p class="eyebrow">FUNDAMENTOS</p>
+                <h2>Variáveis e constantes</h2>
+              </div>
+            </div>
+            <p class="lead">
+              Variáveis guardam as informações que mudam durante a partida.
+            </p>
+            <p>
+              <code>let</code> permite atualizar um valor;
+              <code>const</code> impede que a variável seja reatribuída.
+            </p>
+            <p class="tiny-heading">ONDE ENCONTRAR NO PROJETO</p>
+            <p class="where">
+              Em <code>// 2. VARIÁVEIS DO INIMIGO</code> e
+              <code>// 3. VARIÁVEIS DA IMANI</code>.
+            </p>
+            <div class="code-window">
+              <div class="code-top">
+                <span>JavaScript</span
+                ><button
+                  aria-label="Copiar código"
+                  class="copy-btn"
+                  type="button"
+                >
+                  Copiar código
+                </button>
+              </div>
+              <pre><code class="language-javascript">let vidaImani = 3;
+let posicaoX = 80;
+let pulando = false;
+let energiaAtual = 0;
+const gravidade = 0.8;</code></pre>
+            </div>
+            <div class="remember">
+              <span>✦</span>
+              <p>
+                <strong>Para lembrar:</strong> Os valores são o estado atual da
+                partida.
+              </p>
+            </div>
+            <div class="code-links">
+              <span class="code-links-label">CONFERIR NO CÓDIGO COMPLETO</span
+              ><button
+                class="jump-code"
+                data-file="js"
+                data-line="73"
+                type="button"
+              >
+                ↗ script.js · linha 73
+              </button>
+            </div>
+          </article>
+          <article class="lesson" data-group="jogabilidade" id="tema-03">
+            <div class="lesson-head">
+              <span class="lesson-number">03</span>
+              <div>
+                <p class="eyebrow">JOGABILIDADE</p>
+                <h2>Controles e movimento</h2>
+              </div>
+            </div>
+            <p class="lead">
+              O jogo acompanha as teclas pressionadas e modifica a coordenada
+              horizontal da Imani.
+            </p>
+            <p>
+              <code>keydown</code> identifica a tecla;
+              <code>keyup</code> identifica quando ela foi solta. O loop aplica
+              a posição.
+            </p>
+            <p class="tiny-heading">ONDE ENCONTRAR NO PROJETO</p>
+            <p class="where">
+              <code>// 6. TECLAS PRESSIONADAS</code> e
+              <code>function movimentar()</code>.
+            </p>
+            <div class="code-window">
+              <div class="code-top">
+                <span>JavaScript</span
+                ><button
+                  aria-label="Copiar código"
+                  class="copy-btn"
+                  type="button"
+                >
+                  Copiar código
+                </button>
+              </div>
+              <pre><code class="language-javascript">if (event.key === "ArrowRight" || event.key.toLowerCase() === "d") {
+  direita = true;
+  direcao = "direita";
+}
+
+if (direita) { posicaoX += 5; }
+if (esquerda) { posicaoX -= 5; }
+imani.style.left = posicaoX + "px";</code></pre>
+            </div>
+            <div class="remember">
+              <span>✦</span>
+              <p>
+                <strong>Para lembrar:</strong> A tecla não move a imagem
+                sozinha: ela altera uma variável que o jogo consulta.
+              </p>
+            </div>
+            <div class="code-links">
+              <span class="code-links-label">CONFERIR NO CÓDIGO COMPLETO</span
+              ><button
+                class="jump-code"
+                data-file="js"
+                data-line="143"
+                type="button"
+              >
+                ↗ script.js · linha 143
+              </button>
+            </div>
+          </article>
+          <article class="lesson" data-group="jogabilidade" id="tema-04">
+            <div class="lesson-head">
+              <span class="lesson-number">04</span>
+              <div>
+                <p class="eyebrow">JOGABILIDADE</p>
+                <h2>Pulo e gravidade</h2>
+              </div>
+            </div>
+            <p class="lead">
+              Imani recebe um impulso para subir e uma aceleração que a faz
+              cair.
+            </p>
+            <p>
+              A velocidade vertical diminui a cada atualização. O código limita
+              a altura mínima e impede pulos repetidos no ar.
+            </p>
+            <p class="tiny-heading">ONDE ENCONTRAR NO PROJETO</p>
+            <p class="where">
+              <code>// 5. CONFIGURAÇÕES DO JOGO</code> e
+              <code>function movimentar()</code>.
+            </p>
+            <div class="code-window">
+              <div class="code-top">
+                <span>JavaScript</span
+                ><button
+                  aria-label="Copiar código"
+                  class="copy-btn"
+                  type="button"
+                >
+                  Copiar código
+                </button>
+              </div>
+              <pre><code class="language-javascript">const gravidade = 0.8;
+const forcaPulo = 14;
+const chao = 85;
+
+velocidadeY = forcaPulo;
+pulando = true;
+
+posicaoY += velocidadeY;
+velocidadeY -= gravidade;
+
+if (posicaoY &lt;= chao) {
+  posicaoY = chao;
+  velocidadeY = 0;
+  pulando = false;
+}</code></pre>
+            </div>
+            <div class="remember">
+              <span>✦</span>
+              <p>
+                <strong>Para lembrar:</strong> Não é uma biblioteca de física:
+                são cálculos simples feitos em JavaScript.
+              </p>
+            </div>
+            <div class="code-links">
+              <span class="code-links-label">CONFERIR NO CÓDIGO COMPLETO</span
+              ><button
+                class="jump-code"
+                data-file="js"
+                data-line="137"
+                type="button"
+              >
+                ↗ script.js · linha 137
+              </button>
+            </div>
+          </article>
+          <article class="lesson" data-group="jogabilidade" id="tema-05">
+            <div class="lesson-head">
+              <span class="lesson-number">05</span>
+              <div>
+                <p class="eyebrow">JOGABILIDADE</p>
+                <h2>Animações por estados</h2>
+              </div>
+            </div>
+            <p class="lead">
+              O JavaScript escolhe a sequência de imagens a partir da ação
+              atual.
+            </p>
+            <p>
+              Os arquivos são agrupados em <code>quadrosImani</code>. A função
+              de animação prioriza ataque, pulo, queda e corrida.
+            </p>
+            <p class="tiny-heading">ONDE ENCONTRAR NO PROJETO</p>
+            <p class="where">
+              <code>// 13. CONTROLE DAS ANIMAÇÕES DA IMANI</code>.
+            </p>
+            <div class="code-window">
+              <div class="code-top">
+                <span>JavaScript</span
+                ><button
+                  aria-label="Copiar código"
+                  class="copy-btn"
+                  type="button"
+                >
+                  Copiar código
+                </button>
+              </div>
+              <pre><code class="language-javascript">const quadrosImani = {
+  parada: ["imani-parada-direita.png"],
+  corrida: ["imani-corrida-1.png", "imani-corrida-2.png", "imani-corrida-3.png"],
+  pulo: ["imani-pulo-1.png", "imani-pulo-2.png", "imani-pulo-3.png"],
+  ataque: ["imani-ataque-1.png", "imani-ataque-2.png", "imani-ataque-3.png"]
+};
+
+if (atacando) estadoVisual = "ataque";
+else if (pulando) estadoVisual = velocidadeY &lt; 0 ? "queda" : "pulo";</code></pre>
+            </div>
+            <div class="remember">
+              <span>✦</span>
+              <p>
+                <strong>Para lembrar:</strong> As animações não são vídeos: são
+                imagens trocadas rapidamente.
+              </p>
+            </div>
+            <div class="code-links">
+              <span class="code-links-label">CONFERIR NO CÓDIGO COMPLETO</span
+              ><button
+                class="jump-code"
+                data-file="js"
+                data-line="1166"
+                type="button"
+              >
+                ↗ script.js · linha 1166</button
+              ><button
+                class="jump-code secondary"
+                data-file="css"
+                data-line="43"
+                type="button"
+              >
+                ↗ style.css · linha 43
+              </button>
+            </div>
+          </article>
+          <article class="lesson" data-group="combate" id="tema-06">
+            <div class="lesson-head">
+              <span class="lesson-number">06</span>
+              <div>
+                <p class="eyebrow">COMBATE</p>
+                <h2>Ataque com Nahara e colisões</h2>
+              </div>
+            </div>
+            <p class="lead">
+              O jogo identifica acertos verificando a sobreposição das áreas de
+              ataque e do inimigo.
+            </p>
+            <p>
+              <code>getBoundingClientRect()</code> fornece as coordenadas dos
+              elementos. O ataque tem intervalo mínimo de 450 ms.
+            </p>
+            <p class="tiny-heading">ONDE ENCONTRAR NO PROJETO</p>
+            <p class="where">
+              <code>// 9. ATAQUE DA IMANI CONTRA O INIMIGO</code>.
+            </p>
+            <div class="code-window">
+              <div class="code-top">
+                <span>JavaScript</span
+                ><button
+                  aria-label="Copiar código"
+                  class="copy-btn"
+                  type="button"
+                >
+                  Copiar código
+                </button>
+              </div>
+              <pre><code class="language-javascript">const areaAtaque = ataque.getBoundingClientRect();
+const areaInimigo = inimigo.getBoundingClientRect();
+
+const acertou =
+  areaAtaque.right &gt; areaInimigo.left &amp;&amp;
+  areaAtaque.left &lt; areaInimigo.right &amp;&amp;
+  areaAtaque.bottom &gt; areaInimigo.top &amp;&amp;
+  areaAtaque.top &lt; areaInimigo.bottom;
+
+if (acertou) vidaInimigo--;</code></pre>
+            </div>
+            <div class="remember">
+              <span>✦</span>
+              <p>
+                <strong>Para lembrar:</strong> Hitbox = região retangular usada
+                para detectar colisão.
+              </p>
+            </div>
+            <div class="code-links">
+              <span class="code-links-label">CONFERIR NO CÓDIGO COMPLETO</span
+              ><button
+                class="jump-code"
+                data-file="js"
+                data-line="352"
+                type="button"
+              >
+                ↗ script.js · linha 352</button
+              ><button
+                class="jump-code secondary"
+                data-file="css"
+                data-line="66"
+                type="button"
+              >
+                ↗ style.css · linha 66
+              </button>
+            </div>
+          </article>
+          <article class="lesson" data-group="combate" id="tema-07">
+            <div class="lesson-head">
+              <span class="lesson-number">07</span>
+              <div>
+                <p class="eyebrow">COMBATE</p>
+                <h2>Comportamento dos Véus</h2>
+              </div>
+            </div>
+            <p class="lead">
+              Os Véus perseguem a Imani e calculam de que lado ela está.
+            </p>
+            <p>
+              A diferença entre os centros define a direção, a distância define
+              quando perseguir/atacar e <code>Math.random()</code> permite uma
+              investida ocasional.
+            </p>
+            <p class="tiny-heading">ONDE ENCONTRAR NO PROJETO</p>
+            <p class="where">
+              <code>// MOVIMENTO DO INIMIGO</code> dentro de
+              <code>function movimentar()</code>.
+            </p>
+            <div class="code-window">
+              <div class="code-top">
+                <span>JavaScript</span
+                ><button
+                  aria-label="Copiar código"
+                  class="copy-btn"
+                  type="button"
+                >
+                  Copiar código
+                </button>
+              </div>
+              <pre><code class="language-javascript">const diferenca = centroImani - centroVeu;
+const distancia = Math.abs(diferenca);
+
+if (diferenca &gt; 0) direcaoInimigo = "direita";
+else if (diferenca &lt; 0) direcaoInimigo = "esquerda";
+
+if (distancia &gt; 55 &amp;&amp; !golpeVisivel) {
+  if (direcaoInimigo === "direita") posicaoInimigoX += velocidadeAtual;
+  else posicaoInimigoX -= velocidadeAtual;
+}</code></pre>
+            </div>
+            <div class="remember">
+              <span>✦</span>
+              <p>
+                <strong>Para lembrar:</strong> Math.abs() retorna uma distância
+                positiva; Math.random() sorteia a chance de investida.
+              </p>
+            </div>
+            <div class="code-links">
+              <span class="code-links-label">CONFERIR NO CÓDIGO COMPLETO</span
+              ><button
+                class="jump-code"
+                data-file="js"
+                data-line="1303"
+                type="button"
+              >
+                ↗ script.js · linha 1303</button
+              ><button
+                class="jump-code secondary"
+                data-file="css"
+                data-line="79"
+                type="button"
+              >
+                ↗ style.css · linha 79
+              </button>
+            </div>
+          </article>
+          <article class="lesson" data-group="combate" id="tema-08">
+            <div class="lesson-head">
+              <span class="lesson-number">08</span>
+              <div>
+                <p class="eyebrow">COMBATE</p>
+                <h2>Vida, dano e invulnerabilidade</h2>
+              </div>
+            </div>
+            <p class="lead">
+              A Imani inicia com três corações e perde vida quando o ataque
+              inimigo acerta.
+            </p>
+            <p>
+              Após receber dano, uma variável bloqueia novos danos por 700 ms; a
+              interface é atualizada por uma função.
+            </p>
+            <p class="tiny-heading">ONDE ENCONTRAR NO PROJETO</p>
+            <p class="where">
+              <code>// 10. ATAQUE DO INIMIGO CONTRA A IMANI</code> e
+              <code>function atualizarVida()</code>.
+            </p>
+            <div class="code-window">
+              <div class="code-top">
+                <span>JavaScript</span
+                ><button
+                  aria-label="Copiar código"
+                  class="copy-btn"
+                  type="button"
+                >
+                  Copiar código
+                </button>
+              </div>
+              <pre><code class="language-javascript">vidaImani--;
+atualizarVida();
+
+imaniInvulneravel = true;
+setTimeout(function () {
+  imani.style.opacity = "1";
+  imaniInvulneravel = false;
+}, 700);</code></pre>
+            </div>
+            <div class="remember">
+              <span>✦</span>
+              <p>
+                <strong>Para lembrar:</strong> Ao chegar a zero,
+                finalizarJogo(false) abre a tela de derrota.
+              </p>
+            </div>
+            <div class="code-links">
+              <span class="code-links-label">CONFERIR NO CÓDIGO COMPLETO</span
+              ><button
+                class="jump-code"
+                data-file="js"
+                data-line="433"
+                type="button"
+              >
+                ↗ script.js · linha 433</button
+              ><button
+                class="jump-code secondary"
+                data-file="css"
+                data-line="130"
+                type="button"
+              >
+                ↗ style.css · linha 130
+              </button>
+            </div>
+          </article>
+          <article class="lesson" data-group="combate" id="tema-09">
+            <div class="lesson-head">
+              <span class="lesson-number">09</span>
+              <div>
+                <p class="eyebrow">COMBATE</p>
+                <h2>Ressonância dourada</h2>
+              </div>
+            </div>
+            <p class="lead">
+              Acertar ataques recarrega a habilidade; com a barra cheia, R ativa
+              um golpe especial.
+            </p>
+            <p>
+              Cada acerto normal gera 50 pontos, com limite de 100. O CSS recebe
+              a porcentagem da barra; o dano especial depende da distância.
+            </p>
+            <p class="tiny-heading">ONDE ENCONTRAR NO PROJETO</p>
+            <p class="where">
+              <code>// ATUALIZAR BARRA DE RESSONÂNCIA</code> e
+              <code>function verificarRessonancia()</code>.
+            </p>
+            <div class="code-window">
+              <div class="code-top">
+                <span>JavaScript</span
+                ><button
+                  aria-label="Copiar código"
+                  class="copy-btn"
+                  type="button"
+                >
+                  Copiar código
+                </button>
+              </div>
+              <pre><code class="language-javascript">let energiaAtual = 0;
+const energiaMaxima = 100;
+const energiaPorGolpe = 50;
+
+energiaAtual += energiaPorGolpe;
+const porcentagem = (energiaAtual / energiaMaxima) * 100;
+energiaRessonancia.style.width = porcentagem + "%";
+
+if (distancia &lt;= 130) vidaInimigo--;</code></pre>
+            </div>
+            <div class="remember">
+              <span>✦</span>
+              <p>
+                <strong>Para lembrar:</strong> A Ressonância é DOURADA; os
+                efeitos de ataque de Nahara são separados.
+              </p>
+            </div>
+            <div class="code-links">
+              <span class="code-links-label">CONFERIR NO CÓDIGO COMPLETO</span
+              ><button
+                class="jump-code"
+                data-file="js"
+                data-line="582"
+                type="button"
+              >
+                ↗ script.js · linha 582</button
+              ><button
+                class="jump-code secondary"
+                data-file="css"
+                data-line="185"
+                type="button"
+              >
+                ↗ style.css · linha 185
+              </button>
+            </div>
+          </article>
+          <article class="lesson" data-group="jogabilidade" id="tema-10">
+            <div class="lesson-head">
+              <span class="lesson-number">10</span>
+              <div>
+                <p class="eyebrow">JOGABILIDADE</p>
+                <h2>Fragmentos de Alma</h2>
+              </div>
+            </div>
+            <p class="lead">
+              O primeiro inimigo derrotado deixa um fragmento que pode ser
+              coletado de perto.
+            </p>
+            <p>
+              O código verifica a disponibilidade e a distância do objeto e
+              registra a quantidade de fragmentos recuperados.
+            </p>
+            <p class="tiny-heading">ONDE ENCONTRAR NO PROJETO</p>
+            <p class="where">
+              <code>function mostrarFragmento()</code> e
+              <code>function coletarFragmento()</code>.
+            </p>
+            <div class="code-window">
+              <div class="code-top">
+                <span>JavaScript</span
+                ><button
+                  aria-label="Copiar código"
+                  class="copy-btn"
+                  type="button"
+                >
+                  Copiar código
+                </button>
+              </div>
+              <pre><code class="language-javascript">if (!fragmentoDisponivel) return;
+if (distancia &gt; 65) return;
+
+fragmentoDisponivel = false;
+fragmentosColetados++;
+fragmentoAlma.style.display = "none";</code></pre>
+            </div>
+            <div class="remember">
+              <span>✦</span>
+              <p>
+                <strong>Para lembrar:</strong> O fragmento é requisito para
+                passar da primeira área.
+              </p>
+            </div>
+            <div class="code-links">
+              <span class="code-links-label">CONFERIR NO CÓDIGO COMPLETO</span
+              ><button
+                class="jump-code"
+                data-file="js"
+                data-line="1047"
+                type="button"
+              >
+                ↗ script.js · linha 1047</button
+              ><button
+                class="jump-code secondary"
+                data-file="css"
+                data-line="601"
+                type="button"
+              >
+                ↗ style.css · linha 601
+              </button>
+            </div>
+          </article>
+          <article class="lesson" data-group="jogabilidade" id="tema-11">
+            <div class="lesson-head">
+              <span class="lesson-number">11</span>
+              <div>
+                <p class="eyebrow">JOGABILIDADE</p>
+                <h2>Transição cidade → floresta</h2>
+              </div>
+            </div>
+            <p class="lead">
+              Ao cumprir os requisitos, a cena muda sem abrir outra página.
+            </p>
+            <p>
+              A variável <code>areaAtual</code> muda para 2, uma classe CSS
+              troca o fundo e o inimigo recebe novos atributos.
+            </p>
+            <p class="tiny-heading">ONDE ENCONTRAR NO PROJETO</p>
+            <p class="where">
+              <code>function iniciarTransicaoArea()</code> e
+              <code>#fundoCidade.areaFloresta</code>.
+            </p>
+            <div class="code-window">
+              <div class="code-top">
+                <span>JavaScript</span
+                ><button
+                  aria-label="Copiar código"
+                  class="copy-btn"
+                  type="button"
+                >
+                  Copiar código
+                </button>
+              </div>
+              <pre><code class="language-javascript">areaAtual = 2;
+document.getElementById("fundoCidade").classList.add("areaFloresta");
+
+posicaoInimigoX = 700;
+vidaInimigo = 8;</code></pre>
+            </div>
+            <div class="code-window">
+              <div class="code-top">
+                <span>CSS</span
+                ><button
+                  aria-label="Copiar código"
+                  class="copy-btn"
+                  type="button"
+                >
+                  Copiar código
+                </button>
+              </div>
+              <pre><code class="language-css">#fundoCidade.areaFloresta {
+  background-image: url("imagens/cenario-floresta.png");
+}</code></pre>
+            </div>
+            <div class="remember">
+              <span>✦</span>
+              <p>
+                <strong>Para lembrar:</strong> A tela não precisa ser
+                recarregada para a segunda área aparecer.
+              </p>
+            </div>
+            <div class="code-links">
+              <span class="code-links-label">CONFERIR NO CÓDIGO COMPLETO</span
+              ><button
+                class="jump-code"
+                data-file="js"
+                data-line="1093"
+                type="button"
+              >
+                ↗ script.js · linha 1093</button
+              ><button
+                class="jump-code secondary"
+                data-file="css"
+                data-line="489"
+                type="button"
+              >
+                ↗ style.css · linha 489
+              </button>
+            </div>
+          </article>
+          <article class="lesson" data-group="narrativa" id="tema-12">
+            <div class="lesson-head">
+              <span class="lesson-number">12</span>
+              <div>
+                <p class="eyebrow">NARRATIVA</p>
+                <h2>Diálogos cinematográficos</h2>
+              </div>
+            </div>
+            <p class="lead">
+              O jogo apresenta conversas com efeito de digitação e pausa de
+              combate.
+            </p>
+            <p>
+              <code>setInterval()</code> revela as letras. O mini-chefe aciona
+              diálogos aos 5 e 2 pontos de vida, uma vez cada.
+            </p>
+            <p class="tiny-heading">ONDE ENCONTRAR NO PROJETO</p>
+            <p class="where">
+              <code>function mostrarDialogo(fala)</code> e
+              <code>function verificarDialogoChefe()</code>.
+            </p>
+            <div class="code-window">
+              <div class="code-top">
+                <span>JavaScript</span
+                ><button
+                  aria-label="Copiar código"
+                  class="copy-btn"
+                  type="button"
+                >
+                  Copiar código
+                </button>
+              </div>
+              <pre><code class="language-javascript">const digitacao = setInterval(function () {
+  textoDialogo.textContent += fala[letraAtual];
+  letraAtual++;
+}, 55);
+
+if (vidaInimigo &lt;= 5 &amp;&amp; !primeiroDialogoChefe) {
+  primeiroDialogoChefe = true;
+}</code></pre>
+            </div>
+            <div class="remember">
+              <span>✦</span>
+              <p>
+                <strong>Para lembrar:</strong> Os eventos contam a história
+                enquanto a partida progride.
+              </p>
+            </div>
+            <div class="code-links">
+              <span class="code-links-label">CONFERIR NO CÓDIGO COMPLETO</span
+              ><button
+                class="jump-code"
+                data-file="js"
+                data-line="672"
+                type="button"
+              >
+                ↗ script.js · linha 672</button
+              ><button
+                class="jump-code secondary"
+                data-file="html"
+                data-line="188"
+                type="button"
+              >
+                ↗ index.html · linha 188
+              </button>
+            </div>
+          </article>
+          <article class="lesson" data-group="fundamentos" id="tema-13">
+            <div class="lesson-head">
+              <span class="lesson-number">13</span>
+              <div>
+                <p class="eyebrow">FUNDAMENTOS</p>
+                <h2>Estados do jogo</h2>
+              </div>
+            </div>
+            <p class="lead">
+              A variável de estado define quando os comandos ficam disponíveis.
+            </p>
+            <p>
+              Existem estados como <code>menu</code>, <code>jogando</code>,
+              <code>dialogo</code>, <code>transicao</code> e <code>fim</code>.
+            </p>
+            <p class="tiny-heading">ONDE ENCONTRAR NO PROJETO</p>
+            <p class="where">
+              <code>// ESTADOS DO JOGO</code> e
+              <code>function definirEstado()</code>.
+            </p>
+            <div class="code-window">
+              <div class="code-top">
+                <span>JavaScript</span
+                ><button
+                  aria-label="Copiar código"
+                  class="copy-btn"
+                  type="button"
+                >
+                  Copiar código
+                </button>
+              </div>
+              <pre><code class="language-javascript">function definirEstado(novoEstado) {
+  estadoJogo = novoEstado;
+  jogoIniciado = novoEstado === "jogando";
+}</code></pre>
+            </div>
+            <div class="remember">
+              <span>✦</span>
+              <p><strong>Para lembrar:</strong> === compara valor e tipo.</p>
+            </div>
+            <div class="code-links">
+              <span class="code-links-label">CONFERIR NO CÓDIGO COMPLETO</span
+              ><button
+                class="jump-code"
+                data-file="js"
+                data-line="107"
+                type="button"
+              >
+                ↗ script.js · linha 107
+              </button>
+            </div>
+          </article>
+          <article class="lesson" data-group="narrativa" id="tema-14">
+            <div class="lesson-head">
+              <span class="lesson-number">14</span>
+              <div>
+                <p class="eyebrow">NARRATIVA</p>
+                <h2>Investigação do vestígio</h2>
+              </div>
+            </div>
+            <p class="lead">
+              Depois do segundo Véu, o jogador se aproxima do objeto e pressiona
+              E.
+            </p>
+            <p>
+              O código verifica se a investigação já ocorreu e, após a
+              interação, inicia a sequência final de memórias.
+            </p>
+            <p class="tiny-heading">ONDE ENCONTRAR NO PROJETO</p>
+            <p class="where">
+              <code>function investigarVestigio()</code> e o bloco da tecla
+              <code>E</code>.
+            </p>
+            <div class="code-window">
+              <div class="code-top">
+                <span>JavaScript</span
+                ><button
+                  aria-label="Copiar código"
+                  class="copy-btn"
+                  type="button"
+                >
+                  Copiar código
+                </button>
+              </div>
+              <pre><code class="language-javascript">if (vestigioInvestigado) return;
+vestigioInvestigado = true;
+
+document.getElementById("vestigioFinal").style.display = "none";
+mostrarDialogo("Isso... está ligado à Outra Camada.");</code></pre>
+            </div>
+            <div class="remember">
+              <span>✦</span>
+              <p>
+                <strong>Para lembrar:</strong> O vestígio inicia as quatro
+                memórias.
+              </p>
+            </div>
+            <div class="code-links">
+              <span class="code-links-label">CONFERIR NO CÓDIGO COMPLETO</span
+              ><button
+                class="jump-code"
+                data-file="js"
+                data-line="1024"
+                type="button"
+              >
+                ↗ script.js · linha 1024
+              </button>
+            </div>
+          </article>
+          <article class="lesson" data-group="narrativa" id="tema-15">
+            <div class="lesson-head">
+              <span class="lesson-number">15</span>
+              <div>
+                <p class="eyebrow">NARRATIVA</p>
+                <h2>Memórias e retorno ao início</h2>
+              </div>
+            </div>
+            <p class="lead">
+              Quatro imagens aparecem em sequência e o final mostra “Sujeito
+              perdido.”
+            </p>
+            <p>
+              As funções de flash trocam a imagem. Temporizadores controlam a
+              sequência, o CSS produz interferência e um botão recarrega o jogo.
+            </p>
+            <p class="tiny-heading">ONDE ENCONTRAR NO PROJETO</p>
+            <p class="where">
+              <code>mostrarPrimeiroFlash()</code> até
+              <code>mostrarQuartoFlash()</code>.
+            </p>
+            <div class="code-window">
+              <div class="code-top">
+                <span>JavaScript</span
+                ><button
+                  aria-label="Copiar código"
+                  class="copy-btn"
+                  type="button"
+                >
+                  Copiar código
+                </button>
+              </div>
+              <pre><code class="language-javascript">imagem.style.background =
+  '#07060b url("imagens/flash-corredor.png") center / cover no-repeat';
+
+texto.textContent = "Sujeito perdido.";
+texto.classList.add("visivel");
+
+const botaoInicio = document.createElement("button");
+botaoInicio.textContent = "VOLTAR AO INÍCIO";
+botaoInicio.addEventListener("click", function () {
+  location.reload();
+});</code></pre>
+            </div>
+            <div class="remember">
+              <span>✦</span>
+              <p>
+                <strong>Para lembrar:</strong> A sequência dá pistas sobre o
+                passado de Imani sem revelar o mistério todo.
+              </p>
+            </div>
+            <div class="code-links">
+              <span class="code-links-label">CONFERIR NO CÓDIGO COMPLETO</span
+              ><button
+                class="jump-code"
+                data-file="js"
+                data-line="886"
+                type="button"
+              >
+                ↗ script.js · linha 886</button
+              ><button
+                class="jump-code secondary"
+                data-file="css"
+                data-line="900"
+                type="button"
+              >
+                ↗ style.css · linha 900
+              </button>
+            </div>
+          </article>
+          <article class="lesson" data-group="fundamentos" id="tema-16">
+            <div class="lesson-head">
+              <span class="lesson-number">16</span>
+              <div>
+                <p class="eyebrow">FUNDAMENTOS</p>
+                <h2>Loop principal</h2>
+              </div>
+            </div>
+            <p class="lead">
+              O jogo precisa atualizar posições e comportamentos continuamente.
+            </p>
+            <p>
+              <code>requestAnimationFrame()</code> agenda a próxima atualização
+              visual no navegador.
+            </p>
+            <p class="tiny-heading">ONDE ENCONTRAR NO PROJETO</p>
+            <p class="where">
+              <code>function movimentar()</code> no <code>script.js</code>.
+            </p>
+            <div class="code-window">
+              <div class="code-top">
+                <span>JavaScript</span
+                ><button
+                  aria-label="Copiar código"
+                  class="copy-btn"
+                  type="button"
+                >
+                  Copiar código
+                </button>
+              </div>
+              <pre><code class="language-javascript">function movimentar() {
+  // Movimentação, inimigos, gravidade e animação
+  atualizarAnimacaoImani(performance.now());
+  requestAnimationFrame(movimentar);
+}</code></pre>
+            </div>
+            <div class="remember">
+              <span>✦</span>
+              <p>
+                <strong>Para lembrar:</strong> O jogo roda dentro da página sem
+                precisar recarregá-la a cada movimento.
+              </p>
+            </div>
+            <div class="code-links">
+              <span class="code-links-label">CONFERIR NO CÓDIGO COMPLETO</span
+              ><button
+                class="jump-code"
+                data-file="js"
+                data-line="1254"
+                type="button"
+              >
+                ↗ script.js · linha 1254
+              </button>
+            </div>
+          </article>
+          <section id="glossario">
+            <h2 class="divider-heading">Glossário de comandos</h2>
+            <p class="muted">
+              Os termos de JavaScript, HTML e CSS que aparecem no IMANI.
+            </p>
+            <div class="glossary">
+              <div class="term">
+                <code>let</code>
+                <p>Variável que pode receber novos valores.</p>
+              </div>
+              <div class="term">
+                <code>const</code>
+                <p>Variável que não pode ser reatribuída.</p>
+              </div>
+              <div class="term">
+                <code>function</code>
+                <p>Agrupa instruções reutilizáveis.</p>
+              </div>
+              <div class="term">
+                <code>if / else</code>
+                <p>Decidem o que fazer conforme condições.</p>
+              </div>
+              <div class="term">
+                <code>true / false</code>
+                <p>Valores verdadeiro ou falso.</p>
+              </div>
+              <div class="term">
+                <code>===</code>
+                <p>Compara valores e tipos.</p>
+              </div>
+              <div class="term">
+                <code>&amp;&amp;</code>
+                <p>Operador lógico E.</p>
+              </div>
+              <div class="term">
+                <code>||</code>
+                <p>Operador lógico OU.</p>
+              </div>
+              <div class="term">
+                <code>!</code>
+                <p>Inverte um valor booleano.</p>
+              </div>
+              <div class="term">
+                <code>++ / --</code>
+                <p>Aumenta ou diminui uma unidade.</p>
+              </div>
+              <div class="term">
+                <code>+= / -=</code>
+                <p>Soma ou subtrai e atualiza a variável.</p>
+              </div>
+              <div class="term">
+                <code>return</code>
+                <p>Encerra a execução de uma função.</p>
+              </div>
+              <div class="term">
+                <code>getElementById()</code>
+                <p>Encontra um elemento pelo identificador.</p>
+              </div>
+              <div class="term">
+                <code>addEventListener()</code>
+                <p>Detecta eventos, como teclas e cliques.</p>
+              </div>
+              <div class="term">
+                <code>getBoundingClientRect()</code>
+                <p>Obtém posição e dimensões de um elemento.</p>
+              </div>
+              <div class="term">
+                <code>setTimeout()</code>
+                <p>Executa uma ação após um intervalo.</p>
+              </div>
+              <div class="term">
+                <code>setInterval()</code>
+                <p>Repete ações em intervalos.</p>
+              </div>
+              <div class="term">
+                <code>requestAnimationFrame()</code>
+                <p>Agenda a próxima atualização visual.</p>
+              </div>
+              <div class="term">
+                <code>Math.abs()</code>
+                <p>Obtém o valor absoluto.</p>
+              </div>
+              <div class="term">
+                <code>Math.random()</code>
+                <p>Gera um número aleatório.</p>
+              </div>
+              <div class="term">
+                <code>classList.add()/remove()</code>
+                <p>Adiciona ou remove uma classe CSS.</p>
+              </div>
+              <div class="term">
+                <code>textContent</code>
+                <p>Lê ou modifica o texto de um elemento.</p>
+              </div>
+              <div class="term">
+                <code>style.display</code>
+                <p>Controla a visibilidade de um elemento.</p>
+              </div>
+              <div class="term">
+                <code>location.reload()</code>
+                <p>Recarrega a página.</p>
+              </div>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+    <footer class="footer">
+      <b>IMANI</b> · DOCUMENTAÇÃO DO CÓDIGO · HTML / CSS / JAVASCRIPT
+    </footer>
+    <a class="backtop" href="#top" aria-label="Voltar ao início">↑</a>
+    <script type="application/json" id="file-data">
+      {
+        "html": "\u003c!doctype html\u003e\n\u003chtml lang=\"pt-BR\"\u003e\n  \u003chead\u003e\n    \u003cmeta charset=\"UTF-8\" /\u003e\n    \u003cmeta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" /\u003e\n    \u003ctitle\u003eIMANI\u003c/title\u003e\n    \u003clink rel=\"stylesheet\" href=\"style.css\" /\u003e\n  \u003c/head\u003e\n\n  \u003cbody\u003e\n    \u003c!-- 1. TELA INICIAL --\u003e\n\n    \u003cdiv id=\"telaInicial\"\u003e\n      \u003cdiv id=\"menuOpcoes\"\u003e\n        \u003cbutton id=\"botaoIniciar\" class=\"opcaoMenu\"\u003e\n          \u003cspan class=\"losango\"\u003e\n            \u003cspan class=\"losangoInterno\"\u003e\u003c/span\u003e\n          \u003c/span\u003e\n          \u003cspan class=\"nomeOpcao\"\u003eINICIAR\u003c/span\u003e\n        \u003c/button\u003e\n\n        \u003cbutton id=\"botaoControles\" class=\"opcaoMenu\"\u003e\n          \u003cspan class=\"losango\"\u003e\n            \u003cspan class=\"losangoInterno\"\u003e\u003c/span\u003e\n          \u003c/span\u003e\n          \u003cspan class=\"nomeOpcao\"\u003eCONTROLES\u003c/span\u003e\n        \u003c/button\u003e\n\n        \u003cbutton id=\"botaoCreditos\" class=\"opcaoMenu\"\u003e\n          \u003cspan class=\"losango\"\u003e\n            \u003cspan class=\"losangoInterno\"\u003e\u003c/span\u003e\n          \u003c/span\u003e\n          \u003cspan class=\"nomeOpcao\"\u003eCRÉDITOS\u003c/span\u003e\n        \u003c/button\u003e\n\n        \u003cbutton id=\"botaoSair\" class=\"opcaoMenu\"\u003e\n          \u003cspan class=\"losango\"\u003e\n            \u003cspan class=\"losangoInterno\"\u003e\u003c/span\u003e\n          \u003c/span\u003e\n          \u003cspan class=\"nomeOpcao\"\u003eSAIR\u003c/span\u003e\n        \u003c/button\u003e\n      \u003c/div\u003e\n    \u003c/div\u003e\n\n    \u003c!-- 2. TELA DE CONTROLES --\u003e\n\n    \u003cdiv id=\"telaControles\"\u003e\n      \u003cdiv class=\"painelControles\"\u003e\n        \u003ch1\u003eCONTROLES\u003c/h1\u003e\n\n        \u003cp class=\"subtituloControles\"\u003eDomine seus movimentos.\u003c/p\u003e\n\n        \u003cdiv class=\"listaControles\"\u003e\n          \u003cdiv class=\"controleItem\"\u003e\n            \u003cspan\u003eMOVIMENTAR\u003c/span\u003e\n            \u003cstrong\u003e← → / A D\u003c/strong\u003e\n          \u003c/div\u003e\n\n          \u003cdiv class=\"controleItem\"\u003e\n            \u003cspan\u003ePULAR\u003c/span\u003e\n            \u003cstrong\u003e↑ / W / Z / J\u003c/strong\u003e\n          \u003c/div\u003e\n\n          \u003cdiv class=\"controleItem\"\u003e\n            \u003cspan\u003eATACAR\u003c/span\u003e\n            \u003cstrong\u003eK / X / ESPAÇO\u003c/strong\u003e\n          \u003c/div\u003e\n\n          \u003cdiv class=\"controleItem\"\u003e\n            \u003cspan\u003eRESSONÂNCIA\u003c/span\u003e\n            \u003cstrong\u003eR\u003c/strong\u003e\n          \u003c/div\u003e\n        \u003c/div\u003e\n\n        \u003cbutton id=\"botaoVoltarMenu\"\u003e◇ VOLTAR\u003c/button\u003e\n      \u003c/div\u003e\n    \u003c/div\u003e\n\n    \u003c!-- INTRODUÇÃO DA HISTÓRIA --\u003e\n\n    \u003cdiv id=\"telaIntroducao\"\u003e\n      \u003cp id=\"textoIntroducao\"\u003eEra para ser apenas mais uma recuperação.\u003c/p\u003e\n    \u003c/div\u003e\n\n    \u003c!-- 3. ÁREA DO JOGO --\u003e\n\n    \u003cdiv id=\"jogo\"\u003e\n      \u003c!-- CENÁRIO DA PRIMEIRA CAMADA --\u003e\n      \u003cdiv id=\"cenario\"\u003e\n        \u003c!-- Imagem principal --\u003e\n        \u003cdiv id=\"fundoCidade\"\u003e\u003c/div\u003e\n\n        \u003c!-- Elementos que serão adicionados depois --\u003e\n        \u003cdiv id=\"detalhesCenario\"\u003e\u003c/div\u003e\n        \u003c!-- VESTÍGIO MISTERIOSO DA FLORESTA --\u003e\n        \u003cdiv id=\"vestigioFinal\"\u003e\u003c/div\u003e\n\n        \u003c!-- Área da Ruptura --\u003e\n        \u003cdiv id=\"camadaRuptura\"\u003e\n          \u003cdiv id=\"ruptura\"\u003e\n            \u003cdiv class=\"fenda fenda1\"\u003e\u003c/div\u003e\n            \u003cdiv class=\"fenda fenda2\"\u003e\u003c/div\u003e\n            \u003cdiv class=\"fenda fenda3\"\u003e\u003c/div\u003e\n          \u003c/div\u003e\n          \u003c!-- Bordas da realidade --\u003e\n          \u003cdiv class=\"bordaRuptura\"\u003e\u003c/div\u003e\n        \u003c/div\u003e\n      \u003c/div\u003e\n\n      \u003c!-- HUD DA IMANI --\u003e\n\n      \u003cdiv id=\"hud\"\u003e\n        \u003cspan\u003eIMANI\u003c/span\u003e\n\n        \u003cdiv id=\"vida\"\u003e🤍🤍🤍\u003c/div\u003e\n\n        \u003c!-- BARRA DE RESSONÂNCIA --\u003e\n\n        \u003cdiv id=\"hudRessonancia\"\u003e\n          \u003cspan\u003eRESSONÂNCIA\u003c/span\u003e\n\n          \u003cdiv id=\"barraRessonancia\"\u003e\n            \u003cdiv id=\"energiaRessonancia\"\u003e\u003c/div\u003e\n          \u003c/div\u003e\n        \u003c/div\u003e\n      \u003c/div\u003e\n\n      \u003c!-- BARRA DE VIDA DO MINI-CHEFE --\u003e\n\n      \u003cdiv id=\"hudChefe\"\u003e\n        \u003cspan id=\"nomeChefe\"\u003eVÉU DESCONHECIDO\u003c/span\u003e\n\n        \u003cdiv id=\"barraVidaChefe\"\u003e\n          \u003cdiv id=\"vidaChefePreenchimento\"\u003e\u003c/div\u003e\n        \u003c/div\u003e\n      \u003c/div\u003e\n\n      \u003c!-- DIÁLOGO DO SEGUNDO VÉU --\u003e\n\n      \u003cdiv id=\"dialogoVeu\"\u003e\n        \u003cspan id=\"nomeVeu\"\u003eVÉU DESCONHECIDO\u003c/span\u003e\n        \u003cp id=\"textoVeu\"\u003e\u003c/p\u003e\n      \u003c/div\u003e\n\n      \u003c!-- CHÃO --\u003e\n\n      \u003cdiv id=\"chao\"\u003e\u003c/div\u003e\n\n      \u003c!-- PERSONAGEM IMANI --\u003e\n\n      \u003cdiv id=\"imani\"\u003e\n        \u003c!-- Ataque com a Nahara --\u003e\n        \u003cdiv id=\"ataque\"\u003e\u003c/div\u003e\n\n        \u003c!-- Habilidade especial Ressonância --\u003e\n        \u003cdiv id=\"ressonancia\"\u003e\u003c/div\u003e\n      \u003c/div\u003e\n\n      \u003c!-- INIMIGO --\u003e\n\n      \u003cdiv id=\"inimigo\"\u003e\n        \u003cdiv id=\"ataqueInimigo\"\u003e\u003c/div\u003e\n      \u003c/div\u003e\n\n      \u003c!-- FRAGMENTO DA ALMA --\u003e\n      \u003cdiv id=\"fragmentoAlma\"\u003e\u003c/div\u003e\n\n      \u003c!--  MENSAGEM DE COLETA CINEMATOGRÁFICA --\u003e\n\n      \u003cdiv id=\"mensagemColeta\"\u003e\n        \u003c!-- FRAGMENTO DOURADO --\u003e\n        \u003cdiv id=\"iconeFragmento\"\u003e\n          \u003cdiv class=\"cristalFragmento\"\u003e\u003c/div\u003e\n        \u003c/div\u003e\n\n        \u003c!-- TEXTO DA COLETA --\u003e\n        \u003cdiv id=\"textoMensagemColeta\"\u003e\n          \u003cspan class=\"tituloFragmento\"\u003eFRAGMENTO DE ALMA\u003c/span\u003e\n          \u003cspan class=\"subtituloFragmento\"\u003eABSORVIDO\u003c/span\u003e\n        \u003c/div\u003e\n\n        \u003c!-- DETALHE DECORATIVO --\u003e\n        \u003cdiv class=\"detalheMensagemFragmento\"\u003e\u003c/div\u003e\n      \u003c/div\u003e\n\n      \u003c!-- DIÁLOGO CINEMATOGRÁFICO --\u003e\n\n      \u003cdiv id=\"dialogoImani\"\u003e\n        \u003c!-- RETRATO DA PERSONAGEM --\u003e\n        \u003cdiv id=\"retratoDialogo\"\u003e\u003c/div\u003e\n\n        \u003c!-- CONTEÚDO DO DIÁLOGO --\u003e\n        \u003cdiv id=\"conteudoDialogo\"\u003e\n          \u003c!-- NOME DA PERSONAGEM --\u003e\n          \u003cdiv id=\"nomeDialogo\"\u003e\n            \u003cspan\u003eIMANI\u003c/span\u003e\n          \u003c/div\u003e\n\n          \u003c!-- FALA DA PERSONAGEM --\u003e\n          \u003cp id=\"textoDialogo\"\u003e\u003c/p\u003e\n\n          \u003c!-- INDICADOR DE CONTINUAÇÃO --\u003e\n          \u003cspan id=\"indicadorDialogo\"\u003e◆\u003c/span\u003e\n        \u003c/div\u003e\n      \u003c/div\u003e\n\n      \u003c!-- TRANSIÇÃO ENTRE ÁREAS --\u003e\n      \u003cdiv id=\"transicaoArea\"\u003e\u003c/div\u003e\n\n      \u003c!-- FLASHES DE MEMÓRIA --\u003e\n      \u003cdiv id=\"memoriasFinais\"\u003e\n        \u003cdiv id=\"imagemMemoria\"\u003e\u003c/div\u003e\n        \u003cdiv id=\"textoMemoria\"\u003e\u003c/div\u003e\n      \u003c/div\u003e\n    \u003c/div\u003e\n\n    \u003c!-- 4. TELA DE FIM DE JOGO --\u003e\n\n    \u003cdiv id=\"telaFim\"\u003e\n      \u003ch1 id=\"tituloFim\"\u003e\u003c/h1\u003e\n\n      \u003cp id=\"mensagemFim\"\u003e\u003c/p\u003e\n\n      \u003cbutton id=\"botaoReiniciar\"\u003eJOGAR NOVAMENTE\u003c/button\u003e\n    \u003c/div\u003e\n\n    \u003c!-- 5. JAVASCRIPT --\u003e\n\n    \u003cscript src=\"script.js\"\u003e\u003c/script\u003e\n  \u003c/body\u003e\n\u003c/html\u003e\n",
+        "css": "/* 1. CONFIGURAÇÕES GERAIS */\n* {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n}\nbody {\n  background-color: #0d0d0d;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  height: 100vh;\n  overflow: hidden;\n}\n/* 2. ÁREA DO JOGO */\n#jogo {\n  width: 900px;\n  height: 500px;\n  transform: scale(1.25);\n  background-color: #252525;\n  border: 2px solid #555;\n  position: relative;\n  overflow: hidden;\n}\n#chao {\n  width: 100%;\n  height: 85px;\n  background-color: transparent;\n  position: absolute;\n  bottom: 0;\n  left: 0;\n}\n/* 3. PERSONAGEM IMANI */\n#imani {\n  width: 45px;\n  height: 80px;\n  background: transparent;\n  position: absolute;\n  left: 80px;\n  bottom: 30px;\n}\n/* SPRITE VISUAL DA IMANI */\n#imani::before {\n  content: \"\";\n  position: absolute;\n  width: 160px;\n  height: 160px;\n  left: 50%;\n  bottom: 0;\n  transform: translateX(-50%);\n  background-image: var(\n    \\--sprite-imani,\n    url(\"imagens/imani-parada-direita.png\")\n  );\n  background-size: contain;\n  background-position: center bottom;\n  background-repeat: no-repeat;\n  image-rendering: auto;\n  pointer-events: none;\n}\n/* IMANI OLHANDO PARA A ESQUERDA */\n#imani.viradaEsquerda::before {\n  transform: translateX(-50%) scaleX(-1);\n}\n/* 4. ATAQUE DA IMANI */\n#ataque {\n  width: 70px;\n  height: 45px;\n  background-color: rgba(255, 80, 80, 0.5);\n  position: absolute;\n  top: 20px;\n  left: 45px;\n  display: none;\n}\n#ataque.ativo {\n  display: block;\n}\n/* 5. INIMIGO */\n#inimigo {\n  width: 55px;\n  height: 70px;\n  background-color: #5a3b78;\n  position: absolute;\n  left: 600px;\n  bottom: 85px;\n  border-radius: 20px 20px 5px 5px;\n}\n/* SEGUNDO VÉU - MINI-CHEFE */\n#inimigo.miniChefe {\n  width: 65px;\n  height: 88px;\n  background: linear-gradient(180deg, #3c205d, #702c91, #20102f);\n  border: 2px solid #a866d1;\n  border-radius: 25px 25px 8px 8px;\n  box-shadow:\n    0 0 15px rgba(151, 66, 208, 0.5),\n    0 0 30px rgba(91, 28, 139, 0.3);\n}\n/* 6. ATAQUE DO INIMIGO */\n#ataqueInimigo {\n  width: 85px;\n  height: 45px;\n  background-color: rgba(170, 70, 255, 0.7);\n  position: absolute;\n  top: 15px;\n  left: -55px;\n  border: 2px solid #c77dff;\n  border-radius: 12px;\n  box-shadow: 0 0 15px #a855f7;\n  display: none;\n  z-index: 5;\n}\n#ataqueInimigo.ativo {\n  display: block;\n}\n/* 7. HUD E VIDA */\n#hud {\n  position: absolute;\n  top: 15px;\n  left: 20px;\n  z-index: 10;\n  color: white;\n  font-family: Arial, sans-serif;\n  font-size: 14px;\n}\n#hud span {\n  font-weight: bold;\n  letter-spacing: 2px;\n}\n#vida {\n  margin-top: 5px;\n  color: #c93b3b;\n  font-size: 22px;\n}\n/* 8. RESSONÂNCIA DA IMANI */\n#ressonancia {\n  position: absolute;\n  width: 180px;\n  height: 180px;\n  left: 50%;\n  top: 50%;\n  transform: translate(-50%, -50%) scale(0.2);\n  /* ENERGIA DOURADA DA RESSONÂNCIA */\n  background: radial-gradient(\n    circle,\n    rgba(255, 245, 190, 0.25) 15%,\n    rgba(255, 215, 100, 0.55) 45%,\n    rgba(218, 155, 35, 0.8) 70%,\n    transparent 82%\n  );\n  border-radius: 50%;\n  box-shadow:\n    0 0 25px rgba(255, 205, 80, 0.6),\n    0 0 50px rgba(218, 155, 35, 0.35);\n  pointer-events: none;\n  display: none;\n}\n#ressonancia.ativa {\n  display: block;\n  animation: explosaoRessonancia 0.5s ease-out forwards;\n}\n@keyframes explosaoRessonancia {\n  0% {\n    transform: translate(-50%, -50%) scale(0.2);\n    opacity: 0;\n  }\n  30% {\n    opacity: 1;\n  }\n  100% {\n    transform: translate(-50%, -50%) scale(1.5);\n    opacity: 0;\n  }\n}\n/* 9. BARRA DE RESSONÂNCIA */\n#hudRessonancia {\n  margin-top: 12px;\n  width: 160px;\n}\n#hudRessonancia span {\n  font-size: 11px;\n  color: #f2d58a;\n  letter-spacing: 1px;\n}\n#barraRessonancia {\n  width: 100px;\n  height: 12px;\n  margin-top: 6px;\n  background-color: #38323a;\n  border: 1px solid #98702b;\n  border-radius: 10px;\n  overflow: hidden;\n}\n#energiaRessonancia {\n  width: 0%;\n  height: 100%;\n  background: linear-gradient(90deg,#8c5b18,#e7aa36,#ffe49a);\n  border-radius: 10px;\n  transition: width 0.3s ease;\n}\n/* 10. RESSONÂNCIA CHEIA */\n#barraRessonancia.pronta {\n  border-color: #ffd76e;\n  box-shadow: 0 0 12px #e7aa36;\n  animation: pulsarRessonancia 0.8s infinite alternate;\n}\n@keyframes pulsarRessonancia {\n  from {\n    box-shadow: 0 0 5px #e7aa36;\n  }\n  to {\n    box-shadow:\n      0 0 15px #ffd76e,\n      0 0 25px rgba(255, 215, 110, 0.45);\n  }\n}\n/* 11. TELA DE FIM DE JOGO */\n#telaFim {\n  display: none;\n  position: fixed;\n  inset: 0;\n  background: rgba(15, 10, 20, 0.92);\n  z-index: 100;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  text-align: center;\n}\n#tituloFim {\n  color: #f2b6c2;\n  font-size: 42px;\n  margin-bottom: 12px;\n}\n#mensagemFim {\n  color: white;\n  font-size: 18px;\n  margin-bottom: 25px;\n}\n#botaoReiniciar {\n  background: #9b243e;\n  color: white;\n  border: none;\n  border-radius: 10px;\n  padding: 14px 24px;\n  font-size: 15px;\n  font-weight: bold;\n  cursor: pointer;\n}\n#botaoReiniciar:hover {\n  background: #c43153;\n}\n/* 12. TELA INICIAL */\n#telaInicial {\n  position: fixed;\n  inset: 0;\n  width: 100%;\n  height: 100%;\n  background-image: url(\"imagens/menu-imani.png\");\n  background-size: contain;\n  background-position: center;\n  background-repeat: no-repeat;\n  background-color: #000;\n  z-index: 1000;\n}\n/* 13. POSIÇÃO DO MENU */\n#menuOpcoes {\n  position: absolute;\n  left: 14%;\n  top: 43%;\n  width: 30%;\n  height: 28%;\n  display: flex;\n  flex-direction: column;\n}\n/* 14. BOTÕES DO MENU */\n.opcaoMenu {\n  position: relative;\n  display: flex;\n  align-items: center;\n  gap: 25px;\n  flex: 1;\n  width: 100%;\n  padding: 0;\n  background: transparent;\n  border: none;\n  cursor: pointer;\n  color: #b0a7a5;\n  font-family: Georgia, serif;\n  text-align: left;\n}\n.nomeOpcao {\n  font-size: clamp(14px, 2vw, 30px);\n  transition: 0.25s ease;\n}\n/* 15. LINHA VERMELHA DO MENU */\n.opcaoMenu::after {\n  content: \"\";\n  position: absolute;\n  left: 12%;\n  bottom: 10%;\n  width: 0;\n  height: 3px;\n  background: linear-gradient(\n    90deg,\n    #ff1744 0%,\n    #ff1744 45%,\n    #b80030 75%,\n    transparent 100%\n  );\n  opacity: 0;\n  transition: 0.3s ease;\n}\n/* 16. DESTAQUE DAS LETRAS */\n.opcaoMenu:hover,\n.opcaoMenu:focus-visible {\n  color: #fff4eb;\n}\n.opcaoMenu:hover .nomeOpcao,\n.opcaoMenu:focus-visible .nomeOpcao {\n  transform: scale(1.08);\n  transform-origin: left;\n  text-shadow: 0 0 12px #ff1744;\n}\n.opcaoMenu:hover::after,\n.opcaoMenu:focus-visible::after {\n  width: 95%;\n  opacity: 1;\n}\n/* 17. LOSANGO EXTERNO */\n.losango {\n  position: relative;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 20px;\n  height: 20px;\n  flex-shrink: 0;\n  border: 2px solid #b9aaa0;\n  transform: rotate(45deg);\n  transition: 0.3s ease;\n}\n/* 18. LOSANGO INTERNO */\n.losangoInterno {\n  width: 6px;\n  height: 6px;\n  background: #b9aaa0;\n  transition: 0.3s ease;\n}\n/* 19. EFEITO DO MOUSE NOS LOSANGOS */\n.opcaoMenu:hover .losango,\n.opcaoMenu:focus-visible .losango {\n  border-color: #ff1744;\n  box-shadow:\n    0 0 8px #ff1744,\n    0 0 18px #a60022;\n}\n.opcaoMenu:hover .losangoInterno,\n.opcaoMenu:focus-visible .losangoInterno {\n  width: 12px;\n  height: 12px;\n  background: #ff1744;\n  box-shadow: 0 0 12px #ff1744;\n}\n/* 20. TELA DE CONTROLES */\n#telaControles {\n  display: none;\n  position: fixed;\n  inset: 0;\n  z-index: 1100;\n  background:\n    radial-gradient(circle at 75% 30%, #4b101c, transparent 55%), #080708;\n  align-items: center;\n  justify-content: center;\n}\n.painelControles {\n  width: min(550px, 90%);\n  padding: 40px;\n  border: 1px solid #7d2636;\n  background: rgba(10, 8, 12, 0.9);\n  box-shadow: 0 0 35px rgba(180, 20, 50, 0.15);\n  color: #f4e7df;\n  font-family: Georgia, serif;\n}\n.painelControles h1 {\n  font-size: 36px;\n  letter-spacing: 5px;\n  color: #f4e7df;\n}\n.subtituloControles {\n  margin-top: 10px;\n  margin-bottom: 30px;\n  color: #c65b6d;\n  font-style: italic;\n}\n.listaControles {\n  display: flex;\n  flex-direction: column;\n  gap: 12px;\n}\n.controleItem {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  gap: 15px;\n  padding: 14px 0;\n  border-bottom: 1px solid #4b2830;\n}\n.controleItem span {\n  font-size: 14px;\n  letter-spacing: 2px;\n}\n.controleItem strong {\n  color: #ff526d;\n  font-family: Arial, sans-serif;\n  text-align: right;\n}\n#botaoVoltarMenu {\n  margin-top: 35px;\n  padding: 12px 22px;\n  background: transparent;\n  border: 1px solid #a83b50;\n  color: #f4e7df;\n  font-family: Georgia, serif;\n  font-size: 16px;\n  cursor: pointer;\n  transition: 0.3s;\n}\n#botaoVoltarMenu:hover {\n  background: #a83b50;\n  box-shadow: 0 0 15px #a83b50;\n}\n/* 21. INTRODUÇÃO DA HISTÓRIA */\n#telaIntroducao {\n  display: none;\n  position: fixed;\n  inset: 0;\n  z-index: 1200;\n  background-color: #050505;\n  align-items: center;\n  justify-content: center;\n  padding: 30px;\n}\n#textoIntroducao {\n  color: #f0e6dc;\n  font-family: Georgia, serif;\n  font-size: clamp(20px, 3vw, 36px);\n  font-style: italic;\n  text-align: center;\n  letter-spacing: 2px;\n  opacity: 0;\n}\n#telaIntroducao.ativa {\n  display: flex;\n}\n#telaIntroducao.ativa #textoIntroducao {\n  animation: aparecerTexto 4s ease-in-out forwards;\n}\n@keyframes aparecerTexto {\n  0% {\n    opacity: 0;\n  }\n  30%,\n  70% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0;\n  }\n}\n/* 22. CENÁRIO DA PRIMEIRA CAMADA */\n/* CENÁRIO PRINCIPAL */\n#cenario {\n  position: absolute;\n  inset: 0;\n  z-index: 0;\n  overflow: hidden;\n  pointer-events: none;\n}\n/* FUNDO DA CIDADE */\n#fundoCidade {\n  position: absolute;\n  inset: 0;\n  background-image: url(\"imagens/cenario_imani_ruptura_final_900x500.png\");\n  background-size: 100% 100%;\n  background-position: center;\n  background-repeat: no-repeat;\n}\n/* CENÁRIO DA SEGUNDA ÁREA - FLORESTA */\n#fundoCidade.areaFloresta {\n  background-image: url(\"imagens/cenario-floresta.png\");\n  background-size: 100% 100%;\n  background-position: center;\n  background-repeat: no-repeat;\n}\n/* DETALHES DO CENÁRIO */\n#detalhesCenario {\n  position: absolute;\n  inset: 0;\n  z-index: 1;\n}\n/* FUTURA RUPTURA */\n#camadaRuptura {\n  position: absolute;\n  inset: 0;\n  z-index: 2;\n  pointer-events: none;\n  display: none;\n}\n/* ORGANIZAÇÃO DAS CAMADAS */\n#chao {\n  z-index: 1;\n}\n#imani,\n#inimigo {\n  z-index: 2;\n}\n#hud {\n  z-index: 10;\n}\n/* 23. RUPTURA DA OUTRA CAMADA */\n#ruptura {\n  position: absolute;\n  left: 72%;\n  bottom: 30px;\n  width: 105px;\n  height: 155px;\n  clip-path: polygon(\n    46% 0%,\n    65% 13%,\n    88% 8%,\n    80% 32%,\n    100% 48%,\n    78% 65%,\n    87% 89%,\n    53% 100%,\n    29% 84%,\n    8% 91%,\n    19% 57%,\n    0% 38%,\n    25% 21%\n  );\n  background: #b78b46;\n  opacity: 0.85;\n  animation: respirarRuptura 3s ease-in-out infinite;\n}\n/* INTERIOR DOURADO */\n.interiorRuptura {\n  position: absolute;\n  inset: 5px;\n  overflow: hidden;\n  background: linear-gradient(\n    145deg,\n    #594b48 0%,\n    #94754c 35%,\n    #d3b675 65%,\n    #705a47 100%\n  );\n}\n/* ESTRUTURAS DA OUTRA CAMADA */\n.estruturaDourada {\n  position: absolute;\n  bottom: 0;\n  width: 15px;\n  background: rgba(255, 225, 155, 0.35);\n  border-left: 1px solid #f3d596;\n}\n.estrutura1 {\n  left: 15px;\n  height: 80px;\n}\n.estrutura2 {\n  left: 45px;\n  height: 125px;\n}\n.estrutura3 {\n  left: 75px;\n  height: 95px;\n}\n/* BORDA IRREGULAR */\n.bordaRuptura {\n  position: absolute;\n  inset: 0;\n  border: 3px solid rgba(255, 218, 135, 0.65);\n  box-shadow:\n    inset 0 0 14px rgba(255, 215, 125, 0.5),\n    0 0 10px rgba(255, 200, 90, 0.35);\n}\n/* PULSAÇÃO DISCRETA */\n@keyframes respirarRuptura {\n  0%,\n  100% {\n    opacity: 0.65;\n    transform: scale(0.98);\n  }\n  50% {\n    opacity: 0.95;\n    transform: scale(1.02);\n  }\n}\n/* 24. FRAGMENTO DE ALMA */\n#fragmentoAlma {\n  position: absolute;\n  width: 20px;\n  height: 24px;\n  left: 650px;\n  bottom: 100px;\n  background-color: #d6b5ff;\n  clip-path: polygon(50% 0%, 90% 35%, 75% 85%, 50% 100%, 25% 85%, 10% 35%);\n  filter: drop-shadow(0 0 8px #a66aff);\n  display: none;\n  z-index: 3;\n  pointer-events: none;\n}\n/* 25. MENSAGEM DO FRAGMENTO DE ALMA */\n#mensagemColeta {\n  position: absolute;\n  top: 10px;\n  left: 50%;\n  transform: translateX(-50%);\n  width: 380px;\n  height: 120px;\n  display: none;\n  align-items: center;\n  background-image: url(\"imagens/fragmento-mensagem.png\");\n  background-size: 95% 100%;\n  background-position: center;\n  background-repeat: no-repeat;\n  z-index: 25;\n}\n/* ÁREA DO CRISTAL */\n#iconeFragmento {\n  width: 70px;\n  height: 100%;\n  flex-shrink: 0;\n  display: none;\n  align-items: center;\n  justify-content: center;\n  background: radial-gradient(\n    circle,\n    rgba(226, 171, 55, 0.22),\n    transparent 70%\n  );\n}\n/* FRAGMENTO DOURADO */\n.cristalFragmento {\n  width: 30px;\n  height: 48px;\n  background: linear-gradient(\n    110deg,\n    #684016 0%,\n    #b87b26 25%,\n    #ffe5a0 48%,\n    #d49b38 65%,\n    #593311 100%\n  );\n  clip-path: polygon(50% 0, 78% 20%, 92% 58%, 50% 100%, 12% 60%, 24% 20%);\n  filter: drop-shadow(0 0 12px #e9aa40);\n  animation: pulsarCristal 1.5s ease-in-out infinite alternate;\n}\n@keyframes pulsarCristal {\n  from {\n    opacity: 0.75;\n    transform: scale(0.95);\n  }\n  to {\n    opacity: 1;\n    transform: scale(1.05);\n  }\n}\n/* TEXTO DA MENSAGEM */\n#textoMensagemColeta {\n  position: absolute;\n  left: 110px;\n  top: 47px;\n  width: 210px;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 3px;\n  font-family: Georgia, serif;\n  text-align: center;\n}\n.tituloFragmento {\n  color: #f0e4d7;\n  font-size: 9px;\n  letter-spacing: 1px;\n  white-space: nowrap;\n}\n.subtituloFragmento {\n  color: #e33450;\n  font-size: 16px;\n  letter-spacing: 2px;\n}\n/* DETALHE VERMELHO */\n.detalheMensagemFragmento {\n  display: none;\n  position: absolute;\n  bottom: 9px;\n  right: 35px;\n  width: 125px;\n  height: 2px;\n  background: linear-gradient(90deg, #d3163b, transparent);\n}\n/* 26. DIÁLOGO CINEMATOGRÁFICO */\n#dialogoImani {\n  position: absolute;\n  bottom: 12px;\n  left: 50%;\n  transform: translateX(-50%);\n  width: 700px;\n  height: 165px;\n  display: none;\n  z-index: 20;\n  font-family: Georgia, serif;\n  background-image: url(\"imagens/dialogo-imani.png\");\n  background-size: 70% 110%;\n  background-position: center;\n  background-repeat: no-repeat;\n}\n/* PAINEL PRINCIPAL */\n#conteudoDialogo {\n  position: absolute;\n  left: 312px;\n  bottom: 1px;\n  width: 270px;\n  min-height: 75px;\n  padding: 0;\n  background: transparent;\n  border: none;\n  z-index: 3;\n}\n/* RETRATO DA IMANI */\n#retratoDialogo {\n  display: none;\n  position: absolute;\n  left: 0;\n  bottom: 0;\n  width: 230px;\n  height: 145px;\n  z-index: 2;\n  background-repeat: no-repeat;\n  background-position: center bottom;\n  background-size: contain;\n  pointer-events: none;\n}\n/* NOME DA PERSONAGEM */\n#nomeDialogo {\n  display: block;\n  color: #e33450;\n  font-size: 13px;\n  font-weight: bold;\n  letter-spacing: 3px;\n}\n/* LINHA VERMELHA ABAIXO DO NOME */\n#nomeDialogo::after {\n  content: \"\";\n  display: block;\n  width: 100px;\n  height: 2px;\n  background-color: #d3163b;\n  margin-top: px;\n}\n/* TEXTO DO DIÁLOGO */\n#textoDialogo {\n  margin-top: 1px;\n  color: #f0e4d7;\n  font-size: 5px;\n  letter-spacing: 0.5px;\n  line-height: 1.4;\n}\n/* 27. TRANSIÇÃO ENTRE ÁREAS */\n#transicaoArea {\n  position: absolute;\n  inset: 0;\n  background-color: #050505;\n  opacity: 0;\n  pointer-events: none;\n  z-index: 30;\n  transition: opacity 0.8s ease;\n}\n#transicaoArea.ativa {\n  opacity: 1;\n}\n/* TEXTO DO DIÁLOGO DA IMANI */\n#textoDialogo {\n  margin-top: 5px;\n  width: 100%;\n  color: #f0e4d7;\n  font-size: 13px;\n  letter-spacing: 0.3px;\n  line-height: 1.4;\n  white-space: normal;\n  overflow-wrap: break-word;\n}\n/* BARRA DE VIDA DO MINI-CHEFE */\n#hudChefe {\n  position: absolute;\n  top: 20px;\n  left: 50%;\n  transform: translateX(-50%);\n  width: 300px;\n  display: none;\n  text-align: center;\n  z-index: 15;\n}\n#nomeChefe {\n  color: #e9d6ee;\n  font-family: Georgia, serif;\n  font-size: 13px;\n  letter-spacing: 3px;\n}\n#barraVidaChefe {\n  width: 100%;\n  height: 14px;\n  margin-top: 8px;\n  background-color: #211628;\n  border: 2px solid #8855a4;\n  border-radius: 8px;\n  overflow: hidden;\n}\n#vidaChefePreenchimento {\n  width: 100%;\n  height: 100%;\n  background: linear-gradient(90deg, #632f88, #bc69e1);\n  transition: width 0.25s ease;\n}\n/* DIÁLOGO DO SEGUNDO VÉU */\n#dialogoVeu {\n  position: absolute;\n  top: 115px;\n  left: 50%;\n  transform: translateX(-50%);\n  width: 360px;\n  padding: 18px 25px;\n  background: rgba(16, 8, 25, 0.95);\n  border: 1px solid #9254b6;\n  border-left: 4px solid #b56cdb;\n  box-shadow: 0 0 25px rgba(135, 56, 180, 0.35);\n  display: none;\n  z-index: 25;\n  text-align: center;\n  font-family: Georgia, serif;\n}\n#nomeVeu {\n  color: #c88aeb;\n  font-size: 13px;\n  font-weight: bold;\n  letter-spacing: 3px;\n}\n#textoVeu {\n  margin-top: 12px;\n  color: #f2e6fa;\n  font-size: 17px;\n}\n/* ESCURECIMENTO CINEMATOGRÁFICO LEVE */\n#jogo::after {\n  content: \"\";\n  position: absolute;\n  inset: 0;\n  background-color: rgba(4, 2, 9, 0.5);\n  opacity: 0;\n  pointer-events: none;\n  transition: opacity 0.25s ease;\n  will-change: opacity;\n  z-index: 18;\n}\n/* ATIVAR ESCURECIMENTO */\n#jogo.dialogoAtivo::after {\n  opacity: 1;\n}\n/* VESTÍGIO MISTERIOSO */\n#vestigioFinal {\n  position: absolute;\n  right: 45px;\n  bottom: 85px;\n  width: 24px;\n  height: 40px;\n  display: none;\n  background: linear-gradient(135deg, #47413a, #82735c, #3c3734);\n  border: 2px solid #b89554;\n  border-radius: 4px;\n  box-shadow:\n    0 0 12px rgba(235, 188, 77, 0.6),\n    inset 0 0 8px rgba(255, 208, 108, 0.4);\n  animation: brilhoVestigio 2s ease-in-out infinite;\n  pointer-events: none;\n  z-index: 5;\n}\n/* BRILHO DO VESTÍGIO */\n@keyframes brilhoVestigio {\n  0%,\n  100% {\n    box-shadow: 0 0 8px rgba(235, 188, 77, 0.3);\n  }\n  50% {\n    box-shadow: 0 0 20px rgba(255, 211, 112, 0.9);\n  }\n}\n/* FLASHES FINAIS DE MEMÓRIA */\n#memoriasFinais {\n  position: absolute;\n  inset: 0;\n  width: 100%;\n  height: 100%;\n  display: none;\n  overflow: hidden;\n  background: #07060b;\n  z-index: 100;\n}\n/* IMAGEM DA LEMBRANÇA */\n#imagemMemoria {\n  position: absolute;\n  inset: 0;\n  background-size: cover;\n  background-position: center;\n  background-repeat: no-repeat;\n  opacity: 0;\n  transition: opacity 0.25s ease-in-out;\n}\n#imagemMemoria.visivel {\n  opacity: 1;\n}\n/* TEXTO FINAL */\n#textoMemoria {\n  position: absolute;\n  inset: 0;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  color: #f2eee7;\n  font-size: 28px;\n  font-weight: bold;\n  letter-spacing: 3px;\n  text-align: center;\n  opacity: 0;\n  transition: opacity 0.4s ease-in-out;\n  z-index: 2;\n}\n#textoMemoria.visivel {\n  opacity: 1;\n}\n/* 28. ENCERRAMENTO - FALHA CRÍTICA DO NEXO */\n/* FALHA PROGRESSIVA DA MENSAGEM */\n#memoriasFinais.sistemaFalhando #textoMemoria.visivel {\n  animation: falhaFinal 5s steps(1, end) infinite;\n}\n@keyframes falhaFinal {\n  0%,\n  12% {\n    opacity: 1;\n    transform: translateX(0) scaleY(1);\n    text-shadow: none;\n  }\n  15% {\n    opacity: 0.6;\n    transform: translateX(-5px);\n    text-shadow: 4px 0 #991e2d;\n  }\n  18% {\n    opacity: 1;\n    transform: translateX(3px);\n    text-shadow: -3px 0 #cccccc;\n  }\n  23% {\n    opacity: 0.3;\n    transform: translateX(-8px);\n  }\n  27% {\n    opacity: 1;\n    transform: translateX(6px);\n    text-shadow: 5px 0 #991e2d;\n  }\n  33% {\n    opacity: 0.7;\n    transform: translateX(0) scaleY(1);\n  }\n  39% {\n    opacity: 1;\n    transform: translateX(0) scaleY(0.02);\n  }\n  41%,\n  70% {\n    opacity: 0;\n    transform: scaleY(0.02);\n  }\n  78%,\n  100% {\n    opacity: 1;\n    transform: translateX(0) scaleY(1);\n    text-shadow: none;\n  }\n}\n/* LINHA HORIZONTAL DO DESLIGAMENTO */\n#memoriasFinais.sistemaFalhando::before {\n  content: \"\";\n  position: absolute;\n  top: 50%;\n  left: 0;\n  width: 100%;\n  height: 3px;\n  background: #ddd7d7;\n  box-shadow: 0 0 12px #991e2d;\n  opacity: 0;\n  z-index: 4;\n  pointer-events: none;\n  animation: linhaDesligamento 5s steps(1, end) infinite;\n}\n@keyframes linhaDesligamento {\n  0%,\n  34% {\n    opacity: 0;\n  }\n  35%,\n  39% {\n    opacity: 1;\n  }\n  42%,\n  100% {\n    opacity: 0;\n  }\n}\n/* CORTES DIGITAIS TEMPORÁRIOS */\n#memoriasFinais.sistemaFalhando::after {\n  content: \"\";\n  position: absolute;\n  inset: 0;\n  background: repeating-linear-gradient(\n    to bottom,\n    transparent 0px,\n    transparent 4px,\n    rgba(255, 255, 255, 0.15) 5px\n  );\n  pointer-events: none;\n  z-index: 3;\n  animation: interferenciaFinal 5s steps(1, end) infinite;\n}\n@keyframes interferenciaFinal {\n  0%,\n  13% {\n    opacity: 0;\n  }\n  15%,\n  18%,\n  23%,\n  27%,\n  35% {\n    opacity: 0.4;\n  }\n  20%,\n  25%,\n  30%,\n  40%,\n  100% {\n    opacity: 0;\n  }\n}\n/* 29. INTERFERÊNCIA DAS MEMÓRIAS */\n/* PEQUENOS DESLOCAMENTOS DA IMAGEM */\n#imagemMemoria.visivel {\n  animation: falhaMemoria 0.9s steps(1, end) infinite;\n}\n@keyframes falhaMemoria {\n  0%,\n  28%,\n  35%,\n  65%,\n  82%,\n  100% {\n    transform: translateX(0);\n    filter: none;\n  }\n  30% {\n    transform: translateX(-3px);\n    filter: contrast(1.2);\n  }\n  32% {\n    transform: translateX(2px);\n    filter: brightness(1.15);\n  }\n  67% {\n    transform: translateX(3px);\n    filter: saturate(0.7);\n  }\n  69% {\n    transform: translateX(-2px);\n    filter: contrast(1.1);\n  }\n}\n/* RUÍDO E LINHAS NAS LEMBRANÇAS */\n#imagemMemoria::after {\n  content: \"\";\n  position: absolute;\n  inset: 0;\n  background: repeating-linear-gradient(\n    to bottom,\n    transparent 0px,\n    transparent 5px,\n    rgba(255, 255, 255, 0.15) 6px,\n    transparent 7px\n  );\n  opacity: 0;\n  pointer-events: none;\n  animation: ruidoMemoria 1.1s steps(1, end) infinite;\n}\n@keyframes ruidoMemoria {\n  0%,\n  24%,\n  32%,\n  60%,\n  72%,\n  100% {\n    opacity: 0;\n  }\n  25%,\n  28% {\n    opacity: 0.45;\n  }\n  63%,\n  66% {\n    opacity: 0.25;\n  }\n}\n/* 30. CONTROLE VISUAL ÚNICO DA IMANI */\n#imani::before {\n  animation: none;\n  width: 355px;\n  height: 160px;\n  left: 50%;\n  bottom: 0;\n  transform: translateX(-28%);\n  background-size: 145px 160px;\n  background-position: 17px bottom;\n  background-repeat: no-repeat;\n}\n/* IMANI VIRADA PARA ESQUERDA */\n#imani.viradaEsquerda::before {\n  transform: translateX(-72%) scaleX(-1);\n}\n/* ANIMAÇÃO DE ATAQUE COM NAHARA */\n#imani.atacandoVisual::before {\n  background-size: 355px 160px;\n  background-position: left bottom;\n}\n/* ÁREA INVISÍVEL DO ATAQUE */\n#ataque {\n  background-color: transparent;\n}\n/* 31. ANIMAÇÃO DE PULO DA IMANI */\n#imani.pulandoVisual::before {\n  animation: puloImani 0.48s steps(1, end) forwards;\n}\n@keyframes puloImani {\n  0%,\n  29% {\n    background-image: url(\"imagens/imani-pulo-1.png\");\n  }\n  30%,\n  64% {\n    background-image: url(\"imagens/imani-pulo-2.png\");\n  }\n  65%,\n  100% {\n    background-image: url(\"imagens/imani-pulo-3.png\");\n  }\n}\n/* 32. ANIMAÇÃO DE QUEDA DA IMANI */\n#imani.caindoVisual::before {\n  animation: none;\n  background-image: url(\"imagens/imani-caindo.png\");\n}\n/* 33. ANIMAÇÃO DE POUSO DA IMANI */\n#imani.pousandoVisual::before {\n  animation: none;\n  background-image: url(\"imagens/imani-pousando.png\");\n}\n/* 34. ANIMAÇÃO DE ATAQUE DA IMANI */\n#imani.atacandoVisual::before {\n  width: 355px;\n  height: 160px;\n  left: 50%;\n  bottom: 0;\n  transform: translateX(-25%);\n  animation: ataqueImani 180ms steps(1, end) forwards;\n}\n/* ATAQUE OLHANDO PARA A ESQUERDA */\n#imani.viradaEsquerda.atacandoVisual::before {\n  transform: translateX(-75%) scaleX(-1);\n}\n/* QUADROS DO ATAQUE COM NAHARA */\n@keyframes ataqueImani {\n  0%,\n  32% {\n    background-image: url(\"imagens/imani-ataque-1.png\");\n  }\n  33%,\n  65% {\n    background-image: url(\"imagens/imani-ataque-2.png\");\n  }\n  66%,\n  100% {\n    background-image: url(\"imagens/imani-ataque-3.png\");\n  }\n}\n/* ESCONDER O RETÂNGULO DA ÁREA DE ATAQUE */\n#ataque {\n  background-color: transparent;\n}\n/* 35. DIÁLOGO SOMBRIO DO VÉU */\n#dialogoVeu {\n  width: 440px;\n  padding: 24px 30px;\n  background: linear-gradient(\n    135deg,\n    rgba(12, 7, 23, 0.97),\n    rgba(42, 19, 65, 0.96),\n    rgba(14, 8, 28, 0.97)\n  );\n  border: 1px solid #8b5ab4;\n  border-left: 4px solid #c08be8;\n  border-radius: 4px;\n  box-shadow:\n    0 0 25px rgba(117, 49, 179, 0.45),\n    0 0 55px rgba(84, 27, 134, 0.2),\n    inset 0 0 25px rgba(132, 67, 183, 0.12);\n  animation: surgirDialogoVeu 0.35s ease-out;\n}\n/* LINHA DECORATIVA */\n#dialogoVeu::before {\n  content: \"\";\n  display: block;\n  width: 100%;\n  height: 1px;\n  margin-bottom: 15px;\n  background: linear-gradient(\n    90deg,\n    transparent,\n    #bd81e9,\n    transparent\n  );\n}\n/* NOME DO VÉU */\n#nomeVeu {\n  color: #d9a9ff;\n  font-size: 14px;\n  letter-spacing: 4px;\n  text-shadow: 0 0 12px rgba(199, 125, 255, 0.8);\n}\n/* FALA DO VÉU */\n#textoVeu {\n  margin-top: 15px;\n  color: #f2e7fa;\n  font-size: 18px;\n  line-height: 1.5;\n  text-shadow: 0 0 8px rgba(175, 110, 220, 0.3);\n}\n/* ENTRADA DO DIÁLOGO */\n@keyframes surgirDialogoVeu {\n  from {\n    opacity: 0;\n    transform: translate(-50%, -8px);\n  }\n  to {\n    opacity: 1;\n    transform: translate(-50%, 0);\n  }\n}\n/* 37. BOTÃO DE RETORNO AO INÍCIO */\n#botaoVoltarInicio {\n  position: absolute;\n  bottom: 65px;\n  left: 50%;\n  transform: translateX(-50%);\n  z-index: 20;\n  padding: 13px 30px;\n  background: rgba(12, 8, 14, 0.85);\n  border: 1px solid #8a344a;\n  color: #e8d9dc;\n  font-family: Georgia, serif;\n  font-size: 14px;\n  letter-spacing: 3px;\n  cursor: pointer;\n  animation: aparecerBotaoInicio 1s ease-out forwards;\n  transition:\n*background* 0.3s,\n    box-shadow 0.3s;\n}\n/* EFEITO AO PASSAR O MOUSE */\n#botaoVoltarInicio:hover {\n  background: rgba(90, 22, 42, 0.85);\n  box-shadow:\n    0 0 12px rgba(190, 45, 75, 0.45);\n}\n/* APARECIMENTO DO BOTÃO */\n@keyframes aparecerBotaoInicio {\n  from {\n    opacity: 0;\n  }\n  to {\n    opacity: 1;\n  }\n}\n",
+        "js": "// 1. ELEMENTOS DO HTML\n\nconst imani = document.getElementById(\"imani\");\nconst ataque = document.getElementById(\"ataque\");\nconst ressonancia = document.getElementById(\"ressonancia\");\nconst energiaRessonancia = document.getElementById(\"energiaRessonancia\");\nconst barraRessonancia = document.getElementById(\"barraRessonancia\");\n\nconst fragmentoAlma = document.getElementById(\"fragmentoAlma\");\n\nconst inimigo = document.getElementById(\"inimigo\");\nconst ataqueInimigo = document.getElementById(\"ataqueInimigo\");\n\nconst vidaHUD = document.getElementById(\"vida\");\n\nconst telaFim = document.getElementById(\"telaFim\");\nconst tituloFim = document.getElementById(\"tituloFim\");\nconst mensagemFim = document.getElementById(\"mensagemFim\");\nconst botaoReiniciar = document.getElementById(\"botaoReiniciar\");\n\n// 2. VARIÁVEIS DO INIMIGO\n\nlet vidaInimigo = 5;\n\n// CONTROLE DOS DIÁLOGOS DO MINI-CHEFE\n\nlet primeiroDialogoChefe = false;\n\n// SEGUNDA INTERRUPÇÃO DO MINI-CHEFE\nlet segundoDialogoChefe = false;\n\n// PROTEÇÃO APÓS OS DIÁLOGOS\n\nlet protecaoDialogo = false;\n\n// AGUARDANDO A IMANI POUSAR\nlet aguardandoPousoDialogo = false;\n\n// RETOMAR O COMBATE COM SEGURANÇA\n\nfunction retomarCombateChefe() {\n  // RESTAURA A ILUMINAÇÃO\n  document.getElementById(\"jogo\").classList.remove(\"dialogoAtivo\");\n\n  // Protege a Imani temporariamente\n  protecaoDialogo = true;\n\n  // Cancela o ataque atual do Véu\n  ataqueInimigo.classList.remove(\"ativo\");\n\n  // Retoma o combate\n  definirEstado(\"jogando\");\n\n  // Termina a proteção depois de 1,5 segundo\n  setTimeout(function () {\n    protecaoDialogo = false;\n  }, 1500);\n}\n\nlet posicaoInimigoX = 650;\nlet velocidadeInimigo = 3.2;\n\n// INVESTIDA DO PRIMEIRO VÉU\n\nlet framesInvestida = 0;\nlet recargaInvestida = 0;\n\nlet inimigoAtacando = false;\n\n// Direção para onde o inimigo está olhando\nlet direcaoInimigo = \"esquerda\";\n\n// 3. VARIÁVEIS DA IMANI\n\nlet vidaImani = 3;\nlet imaniInvulneravel = false;\n\nlet posicaoX = 80;\nlet posicaoY = 85;\n\nlet velocidadeY = 0;\nlet pulando = false;\n\nlet atacando = false;\n\n// INTERVALO ENTRE OS ATAQUES DA IMANI\nlet ultimoAtaqueImani = 0;\n\n// ENERGIA DA RESSONÂNCIA\nlet energiaAtual = 0;\n\n// Valor máximo da energia\nconst energiaMaxima = 100;\n\n// Cada golpe de Nahara gera 50 pontos\nconst energiaPorGolpe = 50;\n\n// CONTROLE DO JOGO\nlet jogoIniciado = false;\n\n// ESTADOS DO JOGO\n\nlet estadoJogo = \"menu\";\n\n// ALTERAR O ESTADO DO JOGO\n\nfunction definirEstado(novoEstado) {\n  estadoJogo = novoEstado;\n\n  // Permite jogar somente durante a partida\n  jogoIniciado = novoEstado === \"jogando\";\n\n  // INTERROMPE AÇÕES QUANDO O JOGO NÃO ESTÁ ATIVO\n  if (!jogoIniciado) {\n    direita = false;\n    esquerda = false;\n\n    // Interrompe imediatamente o ataque do Véu\n    ataqueInimigo.classList.remove(\"ativo\");\n\n    // Cancela o golpe da Imani apenas em transição ou fim\n    if (novoEstado === \"transicao\" || novoEstado === \"fim\") {\n      ataque.classList.remove(\"ativo\");\n    }\n  }\n\n  console.log(\"Estado atual:\", estadoJogo);\n}\n\n// 4. CONTROLE DE MOVIMENTO\n\nlet direita = false;\nlet esquerda = false;\n\nlet direcao = \"direita\";\n\n// 5. CONFIGURAÇÕES DO JOGO\n\nconst gravidade = 0.8;\nconst forcaPulo = 14;\nconst chao = 85;\n\n// 6. TECLAS PRESSIONADAS\n\ndocument.addEventListener(\"keydown\", function (event) {\n  // Impede ações antes do início do jogo\n  if (!jogoIniciado || aguardandoPousoDialogo) {\n    return;\n  }\n\n  // INTERAGIR COM O VESTÍGIO - TECLA E\n\n  if (event.key.toLowerCase() === \"e\" \u0026\u0026 !event.repeat) {\n    const vestigio = document.getElementById(\"vestigioFinal\");\n\n    // Só funciona após o desaparecimento do mini-chefe\n    if (\n      areaAtual === 2 \u0026\u0026\n      segundoDialogoChefe \u0026\u0026\n      vidaInimigo \u003c= 0 \u0026\u0026\n      !vestigioInvestigado \u0026\u0026\n      !pulando\n    ) {\n      const areaImani = imani.getBoundingClientRect();\n      const areaVestigio = vestigio.getBoundingClientRect();\n\n      const centroImani = areaImani.left + areaImani.width / 2;\n      const centroVestigio = areaVestigio.left + areaVestigio.width / 2;\n\n      const distancia = Math.abs(centroImani - centroVestigio);\n\n      // Imani precisa estar perto do objeto\n      if (distancia \u003c= 80) {\n        investigarVestigio();\n      }\n    }\n\n    return;\n  }\n\n  // ANDAR PARA DIREITA\n  if (event.key === \"ArrowRight\" || event.key.toLowerCase() === \"d\") {\n    direita = true;\n    direcao = \"direita\";\n  }\n\n  // ANDAR PARA ESQUERDA\n  if (event.key === \"ArrowLeft\" || event.key.toLowerCase() === \"a\") {\n    esquerda = true;\n    direcao = \"esquerda\";\n  }\n\n  // ATUALIZA A DIREÇÃO VISUAL DA IMANI\n\n  imani.classList.toggle(\"viradaEsquerda\", direcao === \"esquerda\");\n\n  // PULO W / Z / J / SETA PARA CIMA\n  const teclaPulo =\n    event.key === \"ArrowUp\" ||\n    event.key.toLowerCase() === \"w\" ||\n    event.key.toLowerCase() === \"z\" ||\n    event.key.toLowerCase() === \"j\";\n\n  if (teclaPulo \u0026\u0026 !pulando \u0026\u0026 !event.repeat \u0026\u0026 vidaImani \u003e 0) {\n    event.preventDefault();\n\n    velocidadeY = forcaPulo;\n    pulando = true;\n\n    console.log(\"PULOU\");\n  }\n\n  // ATAQUE NORMAL DA IMANI K / X / ESPAÇO\n\n  const teclaAtaque =\n    event.key.toLowerCase() === \"k\" ||\n    event.key.toLowerCase() === \"x\" ||\n    event.code === \"Space\";\n\n  if (\n    teclaAtaque \u0026\u0026\n    !atacando \u0026\u0026\n    !event.repeat \u0026\u0026\n    performance.now() - ultimoAtaqueImani \u003e= 450 \u0026\u0026\n    vidaImani \u003e 0\n  ) {\n    event.preventDefault();\n\n    // REGISTRA O ÚLTIMO ATAQUE\n    ultimoAtaqueImani = performance.now();\n\n    atacando = true;\n\n    // Posiciona Nahara na direção da Imani\n    if (direcao === \"direita\") {\n      ataque.style.left = \"45px\";\n    } else {\n      ataque.style.left = \"-70px\";\n    }\n\n    // Mostra o ataque\n    ataque.classList.add(\"ativo\");\n\n    // Verifica o golpe sem atraso\n    verificarAtaque();\n\n    // Finaliza o ataque\n    setTimeout(function () {\n      ataque.classList.remove(\"ativo\");\n      atacando = false;\n    }, 180);\n  }\n\n  // COLETAR FRAGMENTO COM R\n  if (\n    event.key.toLowerCase() === \"r\" \u0026\u0026\n    !event.repeat \u0026\u0026\n    fragmentoDisponivel \u0026\u0026\n    vidaImani \u003e 0\n  ) {\n    coletarFragmento();\n    return;\n  }\n\n  // RESSONÂNCIA DA IMANI — TECLA R\n\n  if (\n    event.key.toLowerCase() === \"r\" \u0026\u0026\n    !event.repeat \u0026\u0026\n    energiaAtual \u003e= energiaMaxima \u0026\u0026\n    vidaImani \u003e 0\n  ) {\n    // Consome toda a energia\n    energiaAtual = 0;\n    atualizarBarraRessonancia();\n\n    // Mostra a explosão de energia\n    ressonancia.classList.add(\"ativa\");\n\n    console.log(\"RESSONÂNCIA ATIVADA!\");\n\n    // Verifica se atingiu o inimigo\n    setTimeout(function () {\n      verificarRessonancia();\n    }, 100);\n\n    // Remove o efeito visual\n    setTimeout(function () {\n      ressonancia.classList.remove(\"ativa\");\n    }, 500);\n  }\n});\n\n// 7. TECLAS SOLTAS\n\ndocument.addEventListener(\"keyup\", function (event) {\n  if (event.key === \"ArrowRight\" || event.key.toLowerCase() === \"d\") {\n    direita = false;\n  }\n\n  if (event.key === \"ArrowLeft\" || event.key.toLowerCase() === \"a\") {\n    esquerda = false;\n  }\n});\n\n// 8. ATAQUE DO INIMIGO\n\nfunction atacarImani() {\n  // NÃO ATACA DURANTE A PROTEÇÃO DO DIÁLOGO\n  if (protecaoDialogo) {\n    return;\n  }\n  // Impede ataques antes ddo início do jogo\n  if (!jogoIniciado) {\n    return;\n  }\n  // Não ataca se já estiver atacando ou se algum dos personagens morreu\n  if (inimigoAtacando || vidaInimigo \u003c= 0 || vidaImani \u003c= 0) {\n    return;\n  }\n\n  inimigoAtacando = true;\n\n  // Atualiza a posição do inimigo\n  inimigo.style.left = posicaoInimigoX + \"px\";\n\n  // Mostra o ataque roxo\n  ataqueInimigo.classList.add(\"ativo\");\n\n  console.log(\"O Véu está atacando!\");\n\n  // Verifica se acertou a Imani\n  setTimeout(function () {\n    if (vidaInimigo \u003e 0 \u0026\u0026 vidaImani \u003e 0) {\n      verificarAtaqueInimigo();\n    }\n  }, 50);\n\n  // Esconde o ataque\n  setTimeout(function () {\n    ataqueInimigo.classList.remove(\"ativo\");\n  }, 300);\n\n  // INTERVALO ENTRE OS ATAQUES DO VÉU\n  setTimeout(function () {\n    inimigoAtacando = false;\n  }, 950);\n}\n\n// 9. ATAQUE DA IMANI CONTRA O INIMIGO\n\nfunction verificarAtaque() {\n  // Não ataca se alguém já morreu\n  if (vidaImani \u003c= 0 || vidaInimigo \u003c= 0) {\n    return;\n  }\n\n  const areaAtaque = ataque.getBoundingClientRect();\n  const areaInimigo = inimigo.getBoundingClientRect();\n\n  // Verifica se as áreas se encostaram\n  const acertou =\n    areaAtaque.right \u003e areaInimigo.left \u0026\u0026\n    areaAtaque.left \u003c areaInimigo.right \u0026\u0026\n    areaAtaque.bottom \u003e areaInimigo.top \u0026\u0026\n    areaAtaque.top \u003c areaInimigo.bottom;\n\n  if (acertou) {\n    // Inimigo perde uma vida\n    vidaInimigo--;\n\n    atualizarVidaChefe();\n\n    // VERIFICA O DIÁLOGO DO MINI-CHEFE\n    verificarDialogoChefe();\n\n    // RECUO DO VÉU AO RECEBER DANO\n\n    if (vidaInimigo \u003e 0) {\n      // Se o Véu estiver à direita da Imani\n      if (posicaoInimigoX \u003e posicaoX) {\n        posicaoInimigoX += 12;\n      } else {\n        // Se estiver à esquerda\n        posicaoInimigoX -= 12;\n      }\n\n      // Impede que o Véu saia da tela\n      posicaoInimigoX = Math.max(0, Math.min(845, posicaoInimigoX));\n\n      // Atualiza a posição dele\n      inimigo.style.left = posicaoInimigoX + \"px\";\n    }\n\n    console.log(\"Acertou!\");\n    console.log(\"Vida do inimigo:\", vidaInimigo);\n\n    // GANHAR ENERGIA DA RESSONÂNCIA\n\n    // Cada golpe acertado gera energia\n    energiaAtual += energiaPorGolpe;\n\n    // Impede que ultrapasse 100\n    if (energiaAtual \u003e energiaMaxima) {\n      energiaAtual = energiaMaxima;\n    }\n\n    // Atualiza a barra visual\n    atualizarBarraRessonancia();\n\n    console.log(\"Energia da Ressonância:\", energiaAtual);\n\n    // EFEITO VISUAL DE DANO\n    inimigo.style.opacity = \"0.4\";\n\n    setTimeout(function () {\n      inimigo.style.opacity = \"1\";\n    }, 120);\n\n    // MORTE DO INIMIGO\n    if (vidaInimigo \u003c= 0) {\n      vidaInimigo = 0;\n      inimigo.style.display = \"none\";\n      if (areaAtual === 1) {\n        mostrarFragmento();\n      }\n    }\n  }\n}\n\n// 10. ATAQUE DO INIMIGO CONTRA A IMANI\n\nfunction verificarAtaqueInimigo() {\n  // NÃO CAUSA DANO DURANTE OS DIÁLOGOS\n  if (!jogoIniciado) {\n    return;\n  }\n\n  // IMANI NÃO RECEBE DANO APÓS O DIÁLOGO\n  if (protecaoDialogo) {\n    return;\n  }\n\n  // Não verifica se alguém morreu ou se Imani está invulnerável\n  if (vidaInimigo \u003c= 0 || vidaImani \u003c= 0 || imaniInvulneravel) {\n    return;\n  }\n\n  const areaImani = imani.getBoundingClientRect();\n  const areaAtaqueInimigo = ataqueInimigo.getBoundingClientRect();\n\n  // Verifica se o golpe acertou\n  const acertou =\n    areaAtaqueInimigo.right \u003e areaImani.left \u0026\u0026\n    areaAtaqueInimigo.left \u003c areaImani.right \u0026\u0026\n    areaAtaqueInimigo.bottom \u003e areaImani.top \u0026\u0026\n    areaAtaqueInimigo.top \u003c areaImani.bottom;\n\n  if (!acertou) {\n    return;\n  }\n\n  // IMANI RECEBE DANO\n  vidaImani--;\n  atualizarVida();\n\n  console.log(\"O Véu acertou a Imani!\");\n  console.log(\"Vida da Imani:\", vidaImani);\n\n  // MORTE DA IMANI\n  if (vidaImani \u003c= 0) {\n    vidaImani = 0;\n\n    imani.style.display = \"none\";\n    ataqueInimigo.classList.remove(\"ativo\");\n\n    console.log(\"Imani morreu!\");\n\n    finalizarJogo(false);\n    return;\n  }\n\n  // EFEITO VISUAL DE DANO\n  imaniInvulneravel = true;\n  imani.style.opacity = \"0.4\";\n\n  // Proteção temporária após receber dano\n  setTimeout(function () {\n    imani.style.opacity = \"1\";\n    imaniInvulneravel = false;\n  }, 700);\n}\n\n// DANO DA RESSONÂNCIA\n\nfunction verificarRessonancia() {\n  // Não atinge inimigos mortos\n  if (\n    vidaInimigo \u003c= 0 ||\n    vidaImani \u003c= 0 ||\n    !jogoIniciado ||\n    aguardandoPousoDialogo\n  ) {\n    return;\n  }\n  const areaImani = imani.getBoundingClientRect();\n  const areaInimigo = inimigo.getBoundingClientRect();\n\n  // Centro dos personagens\n  const centroImani = areaImani.left + areaImani.width / 2;\n\n  const centroInimigo = areaInimigo.left + areaInimigo.width / 2;\n\n  // Distância horizontal\n  const distancia = Math.abs(centroImani - centroInimigo);\n\n  // Atinge o inimigo se estiver próximo\n  if (distancia \u003c= 130) {\n    // Causa 1 ponto de dano\n    vidaInimigo--;\n\n    // RECUO DO VÉU AO RECEBER RESSONÂNCIA\n\n    if (vidaInimigo \u003e 0) {\n      if (posicaoInimigoX \u003e posicaoX) {\n        posicaoInimigoX += 65;\n      } else {\n        posicaoInimigoX -= 65;\n      }\n\n      posicaoInimigoX = Math.max(0, Math.min(845, posicaoInimigoX));\n\n      inimigo.style.left = posicaoInimigoX + \"px\";\n    }\n\n    atualizarVidaChefe();\n\n    // VERIFICA O DIÁLOGO DO MINI-CHEFE\n    verificarDialogoChefe();\n\n    console.log(\"Ressonância acertou o Véu!\");\n\n    // Efeito visual de dano\n    inimigo.style.opacity = \"0.3\";\n\n    setTimeout(function () {\n      inimigo.style.opacity = \"1\";\n    }, 150);\n\n    // MORTE DO INIMIGO\n    if (vidaInimigo \u003c= 0) {\n      vidaInimigo = 0;\n      inimigo.style.display = \"none\";\n      if (areaAtual === 1) {\n        mostrarFragmento();\n      }\n    }\n  }\n}\n\n// ATUALIZAR VIDA DO MINI-CHEFE\n\nfunction atualizarVidaChefe() {\n  // Só atualiza na segunda área\n  if (areaAtual !== 2) {\n    return;\n  }\n\n  // Vida máxima do mini-chefe\n  const vidaMaximaChefe = 8;\n\n  // Calcula a porcentagem de vida\n  const porcentagem = Math.max(0, (vidaInimigo / vidaMaximaChefe) * 100);\n\n  // Atualiza a barra\n  document.getElementById(\"vidaChefePreenchimento\").style.width =\n    porcentagem + \"%\";\n}\n\n// ATUALIZAR BARRA DE RESSONÂNCIA\n\nfunction atualizarBarraRessonancia() {\n  // Calcula a porcentagem da energia\n  const porcentagem = (energiaAtual / energiaMaxima) * 100;\n\n  // Atualiza a largura da barra\n  energiaRessonancia.style.width = porcentagem + \"%\";\n\n  // Faz a barra brilhar quando estiver cheia\n  if (energiaAtual \u003e= energiaMaxima) {\n    barraRessonancia.classList.add(\"pronta\");\n  } else {\n    barraRessonancia.classList.remove(\"pronta\");\n  }\n}\n\n// TELA DE VITÓRIA E DERROTA\n\nfunction finalizarJogo(vitoria) {\n  // IMPEDE FINALIZAR O JOGO MAIS DE UMA VEZ\n  if (estadoJogo === \"fim\") return;\n\n  // ENCERRA A PARTIDA\n  definirEstado(\"fim\");\n\n  direita = false;\n  esquerda = false;\n\n  // CANCELA O EFEITO DA RESSONÂNCIA\n  ressonancia.classList.remove(\"ativa\");\n\n  console.log(\"FINALIZAR JOGO:\", vitoria);\n\n  telaFim.style.display = \"flex\";\n\n  if (vitoria) {\n    tituloFim.textContent = \"VITÓRIA!\";\n    mensagemFim.textContent = \"Imani derrotou o Véu!\";\n  } else {\n    tituloFim.textContent = \"DERROTA\";\n    mensagemFim.textContent = \"Imani foi derrotada!\";\n  }\n}\n\n// REINICIAR O JOGO\n\nbotaoReiniciar.addEventListener(\"click\", function () {\n  location.reload();\n});\n\n// 11. HUD DE VIDA DA IMANI\n\nfunction atualizarVida() {\n  if (vidaImani === 3) {\n    vidaHUD.textContent = \"🤍🤍🤍\";\n  }\n\n  if (vidaImani === 2) {\n    vidaHUD.textContent = \"🤍🤍\";\n  }\n\n  if (vidaImani === 1) {\n    vidaHUD.textContent = \"🤍\";\n  }\n\n  if (vidaImani \u003c= 0) {\n    vidaHUD.textContent = \"💀\";\n  }\n}\n\n// 12. LOOP PRINCIPAL DO JOGO\n\n// CONTROLE DAS ÁREAS DO JOGO\n\nlet areaAtual = 1;\nlet transicaoEmAndamento = false;\n\n// FRAGMENTO DE ALMA\nlet fragmentoDisponivel = false;\n\nfunction mostrarFragmento() {\n  console.log(\"O FRAGMENTO FOI CRIADO!\");\n  fragmentoDisponivel = true;\n\n  // Aparece onde o Véu foi derrotado\n  fragmentoAlma.style.left = posicaoInimigoX + 18 + \"px\";\n  fragmentoAlma.style.display = \"block\";\n}\n\n// SISTEMA DE DIÁLOGO CINEMATOGRÁFICO\n\nfunction mostrarDialogo(fala) {\n  const dialogoImani = document.getElementById(\"dialogoImani\");\n  const textoDialogo = document.getElementById(\"textoDialogo\");\n\n  // Limpa a fala anterior\n  textoDialogo.textContent = \"\";\n\n  // Mostra o painel\n  dialogoImani.style.display = \"block\";\n\n  let letraAtual = 0;\n\n  // Escreve uma letra de cada vez\n  const digitacao = setInterval(function () {\n    textoDialogo.textContent += fala[letraAtual];\n    letraAtual++;\n\n    // Quando terminar a frase\n    if (letraAtual \u003e= fala.length) {\n      clearInterval(digitacao);\n\n      // Aguarda antes de esconder\n      setTimeout(function () {\n        dialogoImani.style.display = \"none\";\n      }, 2500);\n    }\n  }, 55);\n}\n\n// ESPERAR IMANI POUSAR ANTES DO DIÁLOGO\n\nfunction esperarPousoDialogo() {\n  aguardandoPousoDialogo = true;\n  protecaoDialogo = true;\n\n  direita = false;\n  esquerda = false;\n\n  // AFASTA O VÉU ANTES DO DIÁLOGO\n\n  const distanciaSegura = 140;\n\n  // Descobre de qual lado o Véu está\n  if (posicaoInimigoX \u003e= posicaoX) {\n    // Véu fica à direita da Imani\n    posicaoInimigoX = Math.max(posicaoInimigoX, posicaoX + distanciaSegura);\n  } else {\n    // Véu fica à esquerda da Imani\n    posicaoInimigoX = Math.min(posicaoInimigoX, posicaoX - distanciaSegura);\n  }\n\n  // Impede que saia da tela\n  posicaoInimigoX = Math.max(0, Math.min(835, posicaoInimigoX));\n\n  // Atualiza a posição\n  inimigo.style.left = posicaoInimigoX + \"px\";\n\n  // Impede novos ataques do Véu\n  ataqueInimigo.classList.remove(\"ativo\");\n  framesInvestida = 0;\n\n  return new Promise(function (resolve) {\n    function conferirPouso() {\n      // Quando Imani tocar o chão\n      if (posicaoY \u003c= chao) {\n        aguardandoPousoDialogo = false;\n        resolve();\n        return;\n      }\n\n      // Continua aguardando a queda\n      requestAnimationFrame(conferirPouso);\n    }\n\n    conferirPouso();\n  });\n}\n\n// PULSO DOURADO DA OUTRA CAMADA\n\nfunction mostrarPulsoDourado() {\n  const jogo = document.getElementById(\"jogo\");\n\n  jogo.animate(\n    [\n      { filter: \"brightness(1) sepia(0)\" },\n      { filter: \"brightness(1.35) sepia(0.8) saturate(1.6)\" },\n      { filter: \"brightness(1) sepia(0)\" },\n    ],\n    {\n      duration: 1000,\n      easing: \"ease-in-out\",\n    },\n  );\n}\n\n// DIÁLOGOS DO MINI-CHEFE\n\nasync function verificarDialogoChefe() {\n  // Só acontece na segunda área\n  if (areaAtual !== 2) {\n    return;\n  }\n\n  // PRIMEIRA INTERRUPÇÃO - 5 VIDAS\n\n  if (vidaInimigo \u003c= 5 \u0026\u0026 !primeiroDialogoChefe) {\n    primeiroDialogoChefe = true;\n\n    // ESPERA IMANI POUSAR\n    await esperarPousoDialogo();\n\n    definirEstado(\"dialogo\");\n\n    // ESCURECE O CENÁRIO\n    document.getElementById(\"jogo\").classList.add(\"dialogoAtivo\");\n\n    direita = false;\n    esquerda = false;\n\n    ataqueInimigo.classList.remove(\"ativo\");\n\n    const dialogoVeu = document.getElementById(\"dialogoVeu\");\n    const textoVeu = document.getElementById(\"textoVeu\");\n\n    textoVeu.textContent = \"Você... ainda está viva?\";\n    dialogoVeu.style.display = \"block\";\n\n    setTimeout(function () {\n      dialogoVeu.style.display = \"none\";\n\n      mostrarDialogo(\"Como sabe quem eu sou?\");\n\n      // RETOMA O COMBATE COM PROTEÇÃO\n      setTimeout(function () {\n        retomarCombateChefe();\n      }, 4000);\n    }, 2500);\n\n    return;\n  }\n\n  // SEGUNDA INTERRUPÇÃO - 2 VIDAS\n\n  if (vidaInimigo \u003c= 2 \u0026\u0026 !segundoDialogoChefe) {\n    segundoDialogoChefe = true;\n\n    // ESPERA IMANI POUSAR\n    await esperarPousoDialogo();\n\n    definirEstado(\"dialogo\");\n\n    // ESCURECE O CENÁRIO\n    document.getElementById(\"jogo\").classList.add(\"dialogoAtivo\");\n\n    direita = false;\n    esquerda = false;\n\n    ataqueInimigo.classList.remove(\"ativo\");\n\n    const dialogoVeu = document.getElementById(\"dialogoVeu\");\n    const textoVeu = document.getElementById(\"textoVeu\");\n\n    // Primeira fala do Véu\n    textoVeu.textContent = \"Eles não deveriam ter deixado você escapar.\";\n    dialogoVeu.style.display = \"block\";\n\n    setTimeout(function () {\n      dialogoVeu.style.display = \"none\";\n\n      // Resposta de Imani\n      mostrarDialogo(\"Quem são eles? Do que você está falando?\");\n\n      setTimeout(function () {\n        // Última fala do Véu\n        textoVeu.textContent = \"Corra. Antes que percebam.\";\n        dialogoVeu.style.display = \"block\";\n\n        setTimeout(function () {\n          dialogoVeu.style.display = \"none\";\n\n          // O Véu desaparece sem morrer\n          inimigo.style.display = \"none\";\n          vidaInimigo = 0;\n\n          // O VESTÍGIO SURGE NA FLORESTA\n          document.getElementById(\"vestigioFinal\").style.display = \"block\";\n\n          // Esconde a barra de vida\n          document.getElementById(\"hudChefe\").style.display = \"none\";\n\n          // RESTAURA A ILUMINAÇÃO\n          document.getElementById(\"jogo\").classList.remove(\"dialogoAtivo\");\n\n          // A OUTRA CAMADA REAGE\n          mostrarPulsoDourado();\n\n          // FINALIZA A PROTEÇÃO\n          protecaoDialogo = false;\n\n          // Devolve o controle para Imani\n          definirEstado(\"jogando\");\n        }, 2500);\n      }, 5000);\n    }, 2500);\n  }\n}\n\n// COLETAR FRAGMENTO DE ALMA\n\nlet fragmentosColetados = 0;\n\n// PRIMEIRO FLASH - CORREDOR DO NEXO\n\nfunction mostrarPrimeiroFlash() {\n  definirEstado(\"transicao\");\n\n  const memorias = document.getElementById(\"memoriasFinais\");\n  const imagem = document.getElementById(\"imagemMemoria\");\n  const texto = document.getElementById(\"textoMemoria\");\n\n  // Prepara a sequência de memórias\n  memorias.style.display = \"block\";\n  memorias.classList.remove(\"sistemaFalhando\");\n\n  texto.classList.remove(\"visivel\");\n  texto.textContent = \"\";\n\n  // Primeira lembrança: Imani sendo transportada\n  imagem.style.background =\n    '#07060b url(\"imagens/flash-corredor.png\") center / cover no-repeat';\n\n  requestAnimationFrame(function () {\n    imagem.classList.add(\"visivel\");\n  });\n\n  // Próxima lembrança\n  setTimeout(function () {\n    imagem.classList.remove(\"visivel\");\n\n    setTimeout(function () {\n      mostrarSegundoFlash();\n    }, 300);\n  }, 1500);\n}\n\n// SEGUNDO FLASH - EXTRAÇÃO DA IMANI\n\nfunction mostrarSegundoFlash() {\n  const imagem = document.getElementById(\"imagemMemoria\");\n\n  // Segunda lembrança: a sala de extração\n  imagem.style.background =\n    '#07060b url(\"imagens/flash-extracao.png\") center / cover no-repeat';\n\n  requestAnimationFrame(function () {\n    imagem.classList.add(\"visivel\");\n  });\n\n  // Próxima lembrança\n  setTimeout(function () {\n    imagem.classList.remove(\"visivel\");\n\n    setTimeout(function () {\n      mostrarTerceiroFlash();\n    }, 300);\n  }, 1500);\n}\n\n// TERCEIRO FLASH - SILHUETA DE MAIA\n\nfunction mostrarTerceiroFlash() {\n  const imagem = document.getElementById(\"imagemMemoria\");\n\n  // Terceira lembrança: a pesquisadora misteriosa\n  imagem.style.background =\n    '#07060b url(\"imagens/flash-maia.png\") center / cover no-repeat';\n\n  requestAnimationFrame(function () {\n    imagem.classList.add(\"visivel\");\n  });\n\n  // Próxima lembrança\n  setTimeout(function () {\n    imagem.classList.remove(\"visivel\");\n\n    setTimeout(function () {\n      mostrarQuartoFlash();\n    }, 300);\n  }, 1500);\n}\n\n// QUARTO FLASH - REVELAÇÃO DO NEXO\n\nfunction mostrarQuartoFlash() {\n  const memorias = document.getElementById(\"memoriasFinais\");\n  const imagem = document.getElementById(\"imagemMemoria\");\n  const texto = document.getElementById(\"textoMemoria\");\n\n  // Última lembrança: símbolo oficial do Nexo\n  imagem.style.background =\n    '#07060b url(\"imagens/flash-nexo.png\") center / contain no-repeat';\n\n  // Não sobrepõe outro texto à imagem do símbolo\n  texto.textContent = \"\";\n  texto.classList.remove(\"visivel\");\n\n  requestAnimationFrame(function () {\n    imagem.classList.add(\"visivel\");\n  });\n\n  // Encerramento cinematográfico\n  setTimeout(function () {\n    imagem.classList.remove(\"visivel\");\n\n    // Aguarda o escurecimento\n    setTimeout(function () {\n      // Encerra oficialmente a demonstração\n      definirEstado(\"fim\");\n\n      // Mensagem final\n      texto.textContent = \"Sujeito perdido.\";\n      texto.classList.add(\"visivel\");\n\n      // Ativa a falha do sistema do Nexo\n      setTimeout(function () {\n        memorias.classList.add(\"sistemaFalhando\");\n      }, 1200);\n\n      // BOTÃO PARA VOLTAR AO MENU INICIAL\n\n      setTimeout(function () {\n        const botaoInicio = document.createElement(\"button\");\n\n        botaoInicio.id = \"botaoVoltarInicio\";\n        botaoInicio.textContent = \"VOLTAR AO INÍCIO\";\n        botaoInicio.type = \"button\";\n\n        memorias.appendChild(botaoInicio);\n\n        botaoInicio.addEventListener(\"click\", function () {\n          location.reload();\n        });\n      }, 3500);\n    }, 600);\n  }, 1800);\n}\n\n// INVESTIGAÇÃO DO VESTÍGIO\n\nlet vestigioInvestigado = false;\n\nfunction investigarVestigio() {\n  // Impede investigar mais de uma vez\n  if (vestigioInvestigado) return;\n\n  vestigioInvestigado = true;\n\n  // ESCONDE O VESTÍGIO APÓS A INTERAÇÃO\n  document.getElementById(\"vestigioFinal\").style.display = \"none\";\n\n  // Pausa a movimentação\n  definirEstado(\"dialogo\");\n\n  // Reação da Imani\n  mostrarDialogo(\"Isso... está ligado à Outra Camada.\");\n\n  // INICIA A PRIMEIRA LEMBRANÇA APÓS A FALA\n  setTimeout(function () {\n    if (estadoJogo === \"dialogo\") {\n      mostrarPrimeiroFlash();\n    }\n  }, 4800);\n}\n\nfunction coletarFragmento() {\n  // Só coleta se o Fragmento estiver disponível\n  if (!fragmentoDisponivel) {\n    return;\n  }\n\n  // Calcula a distância entre Imani e o Fragmento\n  const posicaoFragmento = parseFloat(fragmentoAlma.style.left);\n\n  const distancia = Math.abs(posicaoX + 22 - (posicaoFragmento + 10));\n\n  // Precisa estar perto do Fragmento\n  if (distancia \u003e 65) {\n    return;\n  }\n\n  // Coleta o Fragmento\n  fragmentoDisponivel = false;\n  fragmentosColetados++;\n\n  fragmentoAlma.style.display = \"none\";\n\n  console.log(\"FRAGMENTO DE ALMA COLETADO!\");\n  console.log(\"Total:\", fragmentosColetados);\n\n  // Mensagem dentro do jogo\n  const mensagemColeta = document.getElementById(\"mensagemColeta\");\n\n  mensagemColeta.style.display = \"flex\";\n\n  // Esconde a mensagem após 2 segundos\n  setTimeout(function () {\n    mensagemColeta.style.display = \"none\";\n  }, 2000);\n\n  // PRIMEIRA REAÇÃO DA IMANI\n\n  if (fragmentosColetados === 1) {\n    setTimeout(function () {\n      mostrarDialogo(\"O que... foi isso?\");\n    }, 2200);\n  }\n}\n\n// TRANSIÇÃO PARA A SEGUNDA ÁREA\n\nfunction iniciarTransicaoArea() {\n  if (transicaoEmAndamento || areaAtual !== 1) {\n    return;\n  }\n\n  transicaoEmAndamento = true;\n\n  // IMPEDE MOVIMENTO DURANTE A TRANSIÇÃO\n  direita = false;\n  esquerda = false;\n\n  // ATIVA O ESTADO DE TRANSIÇÃO\n  definirEstado(\"transicao\");\n\n  const transicaoArea = document.getElementById(\"transicaoArea\");\n\n  // Escurece a tela\n  transicaoArea.classList.add(\"ativa\");\n\n  setTimeout(function () {\n    // Marca a chegada à segunda área\n    areaAtual = 2;\n\n    // SEGUNDO VÉU - MINI-CHEFE\n\n    // Define a vida do mini-chefe\n    vidaInimigo = 8;\n\n    // MOSTRAR BARRA DE VIDA DO MINI-CHEFE\n\n    document.getElementById(\"hudChefe\").style.display = \"block\";\n\n    atualizarVidaChefe();\n\n    // Coloca o mini-chefe na floresta\n    posicaoInimigoX = 700;\n\n    // Atualiza a posição dele\n    inimigo.style.left = posicaoInimigoX + \"px\";\n\n    // Faz o inimigo aparecer novamente\n    inimigo.style.display = \"block\";\n\n    // Restaura a aparência normal\n    inimigo.style.opacity = \"1\";\n\n    // Identifica o segundo Véu\n    inimigo.classList.add(\"miniChefe\");\n\n    // Aumenta um pouco sua velocidade\n    velocidadeInimigo = 3.6;\n\n    // TROCA O CENÁRIO PARA A FLORESTA\n\n    document.getElementById(\"fundoCidade\").classList.add(\"areaFloresta\");\n\n    console.log(\"CENÁRIO DA FLORESTA CARREGADO!\");\n\n    // Reposiciona Imani no início da área\n    posicaoX = 80;\n    imani.style.left = posicaoX + \"px\";\n\n    // Remove o escurecimento\n    transicaoArea.classList.remove(\"ativa\");\n\n    // DEVOLVE O CONTROLE AO JOGADOR\n    definirEstado(\"jogando\");\n    transicaoEmAndamento = false;\n\n    console.log(\"IMANI ENTROU NA SEGUNDA ÁREA!\");\n  }, 1200);\n}\n\n// 13. CONTROLE DAS ANIMAÇÕES DA IMANI\n\nconst quadrosImani = {\n  parada: [\"imani-parada-direita.png\"],\n\n  corrida: [\n    \"imani-corrida-1.png\",\n    \"imani-corrida-2.png\",\n    \"imani-corrida-3.png\",\n  ],\n\n  pulo: [\"imani-pulo-1.png\", \"imani-pulo-2.png\", \"imani-pulo-3.png\"],\n\n  queda: [\"imani-caindo.png\"],\n\n  pouso: [\"imani-pousando.png\"],\n\n  ataque: [\"imani-ataque-1.png\", \"imani-ataque-2.png\", \"imani-ataque-3.png\"],\n};\n\n// CARREGAR AS IMAGENS ANTES DAS ANIMAÇÕES\n\nconst imagensPreCarregadas = [];\n\nObject.values(quadrosImani)\n  .flat()\n  .forEach(function (arquivo) {\n    const imagem = new Image();\n    imagem.src = \"imagens/\" + arquivo;\n    imagensPreCarregadas.push(imagem);\n  });\n\n// CONTROLE DOS QUADROS\n\nlet estadoVisualAnterior = \"\";\nlet quadroVisualAnterior = -1;\nlet inicioAnimacaoVisual = 0;\n\n// ATUALIZAR A ANIMAÇÃO DA IMANI\n\nfunction atualizarAnimacaoImani(agora) {\n  // Define uma única animação por vez\n  let estadoVisual = \"parada\";\n\n  if (atacando) {\n    estadoVisual = \"ataque\";\n  } else if (pulando) {\n    estadoVisual = velocidadeY \u003c 0 ? \"queda\" : \"pulo\";\n  } else if (jogoIniciado \u0026\u0026 direita !== esquerda) {\n    estadoVisual = \"corrida\";\n  }\n\n  // Reinicia os quadros quando a animação muda\n  if (estadoVisual !== estadoVisualAnterior) {\n    estadoVisualAnterior = estadoVisual;\n    inicioAnimacaoVisual = agora;\n    quadroVisualAnterior = -1;\n  }\n\n  const quadros = quadrosImani[estadoVisual];\n\n  // VELOCIDADE DAS ANIMAÇÕES\n  const duracaoQuadro =\n    estadoVisual === \"ataque\" ? 60 : estadoVisual === \"corrida\" ? 90 : 110;\n\n  let indice = Math.floor((agora - inicioAnimacaoVisual) / duracaoQuadro);\n\n  // Corrida se repete; outras animações param no último quadro\n  if (estadoVisual === \"corrida\") {\n    indice = indice % quadros.length;\n  } else {\n    indice = Math.min(indice, quadros.length - 1);\n  }\n\n  // Troca a imagem apenas quando necessário\n  if (indice !== quadroVisualAnterior) {\n    imani.style.setProperty(\n      \"--sprite-imani\",\n      'url(\"imagens/' + quadros[indice] + '\")',\n    );\n    quadroVisualAnterior = indice;\n  }\n\n  // Ajusta a aparência visual\n  imani.classList.toggle(\"atacandoVisual\", estadoVisual === \"ataque\");\n  imani.classList.toggle(\"viradaEsquerda\", direcao === \"esquerda\");\n}\n\nfunction movimentar() {\n  // PAUSA DO JOGO E POUSO DA IMANI\n\n  if (!jogoIniciado) {\n    // Durante os diálogos do mini-chefe,Imani continua caindo até tocar o chão\n    if (areaAtual === 2 \u0026\u0026 primeiroDialogoChefe) {\n      // Aplica a gravidade\n      posicaoY += velocidadeY;\n      velocidadeY -= gravidade;\n\n      // Verifica se chegou ao chão\n      if (posicaoY \u003c= chao) {\n        posicaoY = chao;\n        velocidadeY = 0;\n        pulando = false;\n      }\n\n      // Atualiza a altura da Imani\n      imani.style.bottom = posicaoY + \"px\";\n    }\n\n    atualizarAnimacaoImani(performance.now());\n\n    requestAnimationFrame(movimentar);\n    return;\n\n    requestAnimationFrame(movimentar);\n    return;\n  }\n  // MOVIMENTO DA IMANI\n  if (vidaImani \u003e 0) {\n    if (direita) {\n      posicaoX += 5;\n    }\n\n    if (esquerda) {\n      posicaoX -= 5;\n    }\n  }\n\n  // DIREÇÃO DO ATAQUE DA IMANI\n  if (direcao === \"direita\") {\n    ataque.style.left = \"45px\";\n  }\n\n  if (direcao === \"esquerda\") {\n    ataque.style.left = \"-70px\";\n  }\n\n  // MOVIMENTO DO INIMIGO\n  if (\n    vidaInimigo \u003e 0 \u0026\u0026\n    vidaImani \u003e 0 \u0026\u0026\n    !aguardandoPousoDialogo \u0026\u0026\n    !protecaoDialogo\n  ) {\n    // CALCULA A DISTÂNCIA ENTRE OS PERSONAGENS\n\n    const centroVeu = posicaoInimigoX + (areaAtual === 2 ? 32 : 27);\n    const centroImani = posicaoX + 22;\n\n    const diferenca = centroImani - centroVeu;\n    const distancia = Math.abs(diferenca);\n\n    // PERSEGUIÇÃO E INVESTIDA\n\n    if (recargaInvestida \u003e 0) {\n      recargaInvestida--;\n    }\n\n    // INVESTIDA ALEATÓRIA DO VÉU\n\n    if (distancia \u003e 80 \u0026\u0026 distancia \u003c 200 \u0026\u0026 recargaInvestida === 0) {\n      // Sorteia se o Véu vai investir\n      const sorteio = Math.random();\n\n      // 40% de chance de investir\n      if (sorteio \u003c 0.4) {\n        framesInvestida = 10;\n\n        console.log(\"O VÉU INVESTIU!\");\n      }\n\n      // Espera um tempo aleatório antes de tentar novamente\n      recargaInvestida = 180 + Math.floor(Math.random() * 181);\n    }\n\n    // Define a velocidade\n    let velocidadeAtual = velocidadeInimigo;\n\n    // Durante a investida, ele fica mais rápido\n    if (framesInvestida \u003e 0) {\n      velocidadeAtual = 7;\n      framesInvestida--;\n    }\n\n    // IDENTIFICA A DIREÇÃO DA IMANI IMEDIATAMENTE\n\n    if (diferenca \u003e 0) {\n      direcaoInimigo = \"direita\";\n    } else if (diferenca \u003c 0) {\n      direcaoInimigo = \"esquerda\";\n    }\n\n    // PERSEGUE IMANI MESMO DURANTE A RECARGA\n\n    const golpeVisivel = ataqueInimigo.classList.contains(\"ativo\");\n\n    if (distancia \u003e 55 \u0026\u0026 !golpeVisivel) {\n      if (direcaoInimigo === \"direita\") {\n        posicaoInimigoX += velocidadeAtual;\n      } else {\n        posicaoInimigoX -= velocidadeAtual;\n      }\n    }\n\n    // ATUALIZA O LADO DO ATAQUE\n\n    if (direcaoInimigo === \"esquerda\") {\n      ataqueInimigo.style.left = \"-55px\";\n    } else {\n      ataqueInimigo.style.left = \"25px\";\n    }\n\n    // ATAQUE\n    if (distancia \u003c= 55) {\n      atacarImani();\n    }\n\n    // Atualiza a posição do inimigo\n    inimigo.style.left = posicaoInimigoX + \"px\";\n  }\n\n  // GRAVIDADE DA IMANI\n  posicaoY += velocidadeY;\n  velocidadeY -= gravidade;\n\n  // COLISÃO COM O CHÃO\n  if (posicaoY \u003c= chao) {\n    posicaoY = chao;\n    velocidadeY = 0;\n    pulando = false;\n  }\n\n  // LIMITES DA TELA\n  if (posicaoX \u003c 0) {\n    posicaoX = 0;\n  }\n\n  if (posicaoX \u003e 855) {\n    posicaoX = 855;\n  }\n\n  // ATUALIZA POSIÇÃO DA IMANI\n  imani.style.left = posicaoX + \"px\";\n  imani.style.bottom = posicaoY + \"px\";\n\n  // PASSAGEM PARA A SEGUNDA ÁREA\n\n  if (areaAtual === 1 \u0026\u0026 fragmentosColetados \u003e= 1 \u0026\u0026 posicaoX \u003e= 845) {\n    iniciarTransicaoArea();\n  }\n\n  // ATUALIZA A APARÊNCIA DA IMANI\n\n  atualizarAnimacaoImani(performance.now());\n\n  // Continua o jogo\n  requestAnimationFrame(movimentar);\n}\n\n// 13. INICIAR O JOGO\n\natualizarBarraRessonancia();\nmovimentar();\n\n// BOTÃO INICIAR E INTRODUÇÃO\n\ndocument.getElementById(\"botaoIniciar\").addEventListener(\"click\", function () {\n  // Esconde o menu\n  document.getElementById(\"telaInicial\").style.display = \"none\";\n\n  // Mostra a introdução\n  const introducao = document.getElementById(\"telaIntroducao\");\n  introducao.classList.add(\"ativa\");\n\n  // Após a introdução, mostra o jogo\n  setTimeout(function () {\n    introducao.classList.remove(\"ativa\");\n\n    // INICIA O ESTADO DE JOGABILIDADE\n    definirEstado(\"jogando\");\n  }, 4000);\n});\n\n// 14. TELA DE CONTROLES\n\nconst botaoControles = document.getElementById(\"botaoControles\");\nconst botaoVoltarMenu = document.getElementById(\"botaoVoltarMenu\");\nconst telaControles = document.getElementById(\"telaControles\");\nconst telaInicial = document.getElementById(\"telaInicial\");\n\n// Abrir controles\nbotaoControles.addEventListener(\"click\", function () {\n  telaControles.style.display = \"flex\";\n});\n\n// Voltar ao menu inicial\nbotaoVoltarMenu.addEventListener(\"click\", function () {\n  telaControles.style.display = \"none\";\n});\n\n// TESTE TEMPORÁRIO DAS CAIXAS\n\ndocument.addEventListener(\"keydown\", function (event) {\n  if (event.key === \"1\") {\n    const caixa = document.getElementById(\"mensagemColeta\");\n\n    caixa.style.display = caixa.style.display === \"flex\" ? \"none\" : \"flex\";\n  }\n\n  if (event.key === \"2\") {\n    const caixa = document.getElementById(\"dialogoImani\");\n\n    caixa.style.display = caixa.style.display === \"block\" ? \"none\" : \"block\";\n\n    document.getElementById(\"textoDialogo\").textContent = \"O que... foi isso?\";\n  }\n});\n"
+      }
+    </script>
+    <script>
+      (function () {
+        "use strict";
+        const files = JSON.parse(
+          document.getElementById("file-data").textContent,
+        );
+        const names = { html: "index.html", css: "style.css", js: "script.js" };
+        const lines = Object.fromEntries(
+          Object.entries(files).map(([key, value]) => [
+            key,
+            value.replace(/\r\n/g, "\n").split("\n"),
+          ]),
+        );
+        const buttons = [...document.querySelectorAll(".file-tab")];
+        const viewer = document.getElementById("code-view");
+        const panel = document.getElementById("codepanel");
+        const sourceName = document.getElementById("source-name");
+        const sourceCount = document.getElementById("source-count");
+        const lineField = document.getElementById("line-field");
+        const sourceFoot = document.getElementById("source-foot-count");
+        const search = document.getElementById("global-search");
+        const searchResults = document.getElementById("search-results");
+        const lessonEls = [...document.querySelectorAll("article.lesson")];
+        const navLinks = [...document.querySelectorAll(".nav-links a")];
+        const normal = (s) =>
+          s
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .toLowerCase();
+        let active = "js",
+          activeQuery = "",
+          activeTarget = null,
+          results = [],
+          shown = 0;
+
+        function addHighlighted(parent, value, query) {
+          if (!query) {
+            parent.textContent = value;
+            return;
+          }
+          const flat = normal(value),
+            needle = normal(query);
+          const at = flat.indexOf(needle);
+          if (at < 0) {
+            parent.textContent = value;
+            return;
+          }
+          // Preserve the original Unicode code points while highlighting matched text.
+          parent.append(document.createTextNode(value.slice(0, at)));
+          const mark = document.createElement("mark");
+          mark.textContent = value.slice(at, at + query.length);
+          parent.append(mark);
+          parent.append(
+            document.createTextNode(value.slice(at + query.length)),
+          );
+        }
+        function render(file, query = "") {
+          active = file;
+          activeQuery = query;
+          if (activeTarget) {
+            activeTarget.classList.remove("target");
+            activeTarget = null;
+          }
+          viewer.replaceChildren();
+          const count = lines[file].length;
+          const fragment = document.createDocumentFragment();
+          // O arquivo inteiro é apresentado, sem páginas de 220 linhas.
+          lines[file].forEach((line, i) => {
+            const lineNumber = i + 1;
+            const row = document.createElement("div");
+            row.className = "code-line";
+            row.id = "L-" + lineNumber;
+            if (/^\s*(\/\/|\/\*|\*|<!--|\*\/)/.test(line))
+              row.classList.add("is-comment");
+            else if (
+              /^\s*(?:const |let |function |async function |@keyframes |#[\w-]+|\.[\w-]+)/.test(
+                line,
+              )
+            )
+              row.classList.add("is-decl");
+            const num = document.createElement("span");
+            num.className = "line-no";
+            num.textContent = lineNumber;
+            const code = document.createElement("span");
+            code.className = "line-code";
+            addHighlighted(code, line, query);
+            row.append(num, code);
+            fragment.append(row);
+          });
+          viewer.append(fragment);
+          sourceName.textContent = names[file];
+          sourceCount.textContent =
+            count.toLocaleString("pt-BR") + " linhas no arquivo";
+          sourceFoot.textContent =
+            "Arquivo completo · " +
+            count.toLocaleString("pt-BR") +
+            " linhas disponíveis";
+          buttons.forEach((button) =>
+            button.setAttribute(
+              "aria-selected",
+              String(button.dataset.file === file),
+            ),
+          );
+          lineField.max = count;
+          lineField.placeholder = "1–" + count;
+          panel.scrollTop = 0;
+          panel.scrollLeft = 0;
+        }
+        function jump(file, number, query = "") {
+          if (!lines[file]) return;
+          const numberSafe = Math.max(
+            1,
+            Math.min(lines[file].length, Number(number) || 1),
+          );
+          if (active !== file || activeQuery !== query) render(file, query);
+          document
+            .getElementById("codigo")
+            .scrollIntoView({ behavior: "smooth", block: "start" });
+          const target = document.getElementById("L-" + numberSafe);
+          if (activeTarget) activeTarget.classList.remove("target");
+          activeTarget = target;
+          target.classList.add("target");
+          requestAnimationFrame(() => {
+            panel.scrollTop = Math.max(
+              0,
+              target.offsetTop - viewer.offsetTop - panel.clientHeight / 2 + 15,
+            );
+          });
+          sourceFoot.textContent =
+            names[file] +
+            " · linha " +
+            numberSafe +
+            " de " +
+            lines[file].length;
+        }
+        buttons.forEach((button) =>
+          button.addEventListener("click", () => {
+            activeTarget = null;
+            render(button.dataset.file);
+          }),
+        );
+        document
+          .querySelectorAll(".jump-code")
+          .forEach((button) =>
+            button.addEventListener("click", () =>
+              jump(button.dataset.file, button.dataset.line),
+            ),
+          );
+        document
+          .getElementById("go-line")
+          .addEventListener("click", () => jump(active, lineField.value));
+        lineField.addEventListener("keydown", (e) => {
+          if (e.key === "Enter") jump(active, lineField.value);
+        });
+        document
+          .getElementById("copy-full")
+          .addEventListener("click", async function () {
+            const button = this;
+            try {
+              await navigator.clipboard.writeText(files[active]);
+              button.textContent = "✓ Copiado";
+            } catch (e) {
+              button.textContent = "Selecione no código";
+            }
+            setTimeout(() => (button.textContent = "Copiar arquivo"), 1900);
+          });
+        document
+          .getElementById("download-full")
+          .addEventListener("click", () => {
+            const blob = new Blob([files[active]], {
+              type: "text/plain;charset=utf-8",
+            });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = names[active];
+            a.click();
+            setTimeout(() => URL.revokeObjectURL(url), 1000);
+          });
+        document.querySelectorAll(".copy-btn").forEach((btn) =>
+          btn.addEventListener("click", async () => {
+            const code = btn
+              .closest(".code-window")
+              .querySelector("pre code").textContent;
+            try {
+              await navigator.clipboard.writeText(code);
+              btn.textContent = "Copiado!";
+            } catch (e) {
+              btn.textContent = "Selecione o código";
+            }
+            setTimeout(() => (btn.textContent = "Copiar código"), 1900);
+          }),
+        );
+        document
+          .getElementById("print-btn")
+          .addEventListener("click", () => window.print());
+
+        function makeHit(hit) {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "search-hit";
+          const meta = document.createElement("span");
+          meta.className = "hit-meta";
+          meta.textContent =
+            hit.type === "doc"
+              ? "EXPLICAÇÃO · " + hit.title
+              : names[hit.file] + " · linha " + hit.line;
+          const fragment = document.createElement("span");
+          fragment.className =
+            "hit-fragment" + (hit.type === "doc" ? " doc" : "");
+          addHighlighted(fragment, hit.snippet, search.value.trim());
+          btn.append(meta, fragment);
+          btn.addEventListener("click", () => {
+            searchResults.classList.remove("show");
+            if (hit.type === "doc")
+              document
+                .getElementById(hit.id)
+                .scrollIntoView({ behavior: "smooth", block: "start" });
+            else jump(hit.file, hit.line, search.value.trim());
+          });
+          return btn;
+        }
+        function addGroup(heading, arr, limit) {
+          if (arr.length === 0) return;
+          const h = document.createElement("div");
+          h.className = "result-title";
+          h.textContent = heading;
+          searchResults.append(h);
+          arr
+            .slice(0, limit)
+            .forEach((hit) => searchResults.append(makeHit(hit)));
+        }
+        function calculate(query) {
+          const q = normal(query);
+          const docs = [];
+          lessonEls.forEach((el) => {
+            const title = el.querySelector("h2").textContent;
+            const content = normal(el.textContent);
+            if (content.includes(q)) {
+              const snippet =
+                el.querySelector(".lead")?.textContent ||
+                el.querySelector("p")?.textContent ||
+                title;
+              docs.push({
+                type: "doc",
+                id: el.id,
+                title,
+                snippet: snippet.trim(),
+              });
+            }
+          });
+          const code = [];
+          Object.entries(lines).forEach(([file, arr]) =>
+            arr.forEach((value, i) => {
+              if (normal(value).includes(q))
+                code.push({
+                  type: "code",
+                  file,
+                  line: i + 1,
+                  snippet: value.trim() || "(linha vazia)",
+                });
+            }),
+          );
+          return { docs, code };
+        }
+        function drawResults() {
+          const q = search.value.trim();
+          searchResults.replaceChildren();
+          if (!q) {
+            searchResults.classList.remove("show");
+            return;
+          }
+          const found = calculate(q);
+          results = found;
+          const total = found.docs.length + found.code.length;
+          const countText =
+            total +
+            " " +
+            (total === 1 ? "resultado" : "resultados") +
+            " para “" +
+            q +
+            "”";
+          const header = document.createElement("div");
+          header.className = "search-count";
+          header.textContent = countText;
+          searchResults.append(header);
+          if (total === 0) {
+            const empty = document.createElement("div");
+            empty.className = "result-title";
+            empty.textContent =
+              "Nenhuma correspondência. Experimente uma função, variável ou palavra-chave.";
+            searchResults.append(empty);
+          } else {
+            addGroup("Explicações", found.docs, 6);
+            addGroup("Trechos do código-fonte", found.code, shown || 24);
+            if (found.code.length > (shown || 24)) {
+              const more = document.createElement("button");
+              more.type = "button";
+              more.className = "more-btn";
+              more.textContent = "Mostrar mais resultados de código";
+              more.addEventListener("click", () => {
+                shown += 35;
+                drawResults();
+              });
+              searchResults.append(more);
+            }
+          }
+          searchResults.classList.add("show");
+        }
+        search.addEventListener("input", () => {
+          shown = 0;
+          drawResults();
+        });
+        search.addEventListener("keydown", (e) => {
+          if (e.key === "Escape") {
+            searchResults.classList.remove("show");
+            search.blur();
+          }
+          if (e.key === "Enter") {
+            e.preventDefault();
+            const first = searchResults.querySelector(".search-hit");
+            if (first) first.click();
+          }
+        });
+        document.addEventListener("keydown", (e) => {
+          if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
+            e.preventDefault();
+            search.focus();
+            search.select();
+          }
+          if (e.key === "Escape") searchResults.classList.remove("show");
+        });
+        document.addEventListener("click", (e) => {
+          if (!e.target.closest(".search-shell"))
+            searchResults.classList.remove("show");
+        });
+        // Support deep links to code: #source=js:352
+        if (location.hash.startsWith("#source=")) {
+          const match = location.hash.match(/^#source=(html|css|js):(\d+)$/);
+          if (match) {
+            render(match[1]);
+            setTimeout(() => jump(match[1], match[2]), 30);
+          } else render("js");
+        } else render("js");
+      })();
+    </script>
+  </body>
+</html>
